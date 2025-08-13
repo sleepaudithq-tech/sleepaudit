@@ -1,5 +1,5 @@
 import { DocumentTextIcon } from '@sanity/icons'
-import { defineArrayMember, defineField, defineType } from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export const postType = defineType({
   name: 'post',
@@ -22,13 +22,21 @@ export const postType = defineType({
     }),
     defineField({
       name: 'metaDescription',
-      title: 'Meta Description',
+      title: 'Meta Description (SEO)',
       type: 'string',
+      description: 'Description for search engines and social media',
       validation: Rule => Rule.max(160).warning('Google cuts off at ~160 characters')
     }),
     defineField({
+      name: 'excerpt',
+      title: 'Excerpt',
+      description: 'Short summary for blog listings',
+      type: 'text',
+      validation: Rule => Rule.max(200)
+    }),
+    defineField({
       name: 'featuredImage',
-      title: 'Featured Image',
+      title: 'Cover Image',
       type: 'image',
       options: { hotspot: true },
       fields: [
@@ -37,42 +45,77 @@ export const postType = defineType({
     }),
     defineField({
       name: 'body',
-      title: 'Body',
+      title: 'Body Content',
       type: 'array',
-      of: [{ type: 'block' }]
+      of: [
+        { type: 'block' },
+        {
+          type: 'image',
+          options: { hotspot: true },
+          fields: [
+            { name: 'alt', type: 'string', title: 'Alt Text' },
+            { name: 'caption', type: 'string', title: 'Caption' }
+          ]
+        }
+      ]
     }),
     defineField({
       name: 'category',
       title: 'Category',
       type: 'reference',
-      to: { type: 'category' }
+      to: { type: 'category' },
+      validation: Rule => Rule.required()
     }),
     defineField({
-      name: 'internalLinks',
-      title: 'Internal Links',
+      name: 'tags',
+      title: 'Tags',
       type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'post' }] }],
-      validation: Rule => Rule.min(3).warning('Minimum 3 internal links recommended')
-    }),
-    defineField({
-      name: 'author',
-      type: 'reference',
-      to: { type: 'author' },
+      of: [{ type: 'string' }],
+      options: {
+        layout: 'tags'
+      }
     }),
     defineField({
       name: 'publishedAt',
+      title: 'Published At',
       type: 'datetime',
+      validation: Rule => Rule.required()
     }),
+    defineField({
+      name: 'estimatedReadingTime',
+      title: 'Estimated Reading Time (minutes)',
+      type: 'number',
+      validation: Rule => Rule.required().min(1)
+    }),
+    defineField({
+      name: 'status',
+      title: 'Status',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Draft', value: 'draft' },
+          { title: 'Published', value: 'published' }
+        ],
+        layout: 'radio'
+      },
+      initialValue: 'draft',
+      validation: Rule => Rule.required()
+    })
   ],
   preview: {
     select: {
       title: 'title',
-      author: 'author.name',
-      media: 'featuredImage',
+      category: 'category.title',
+      status: 'status',
+      media: 'featuredImage'
     },
     prepare(selection) {
-      const { author } = selection
-      return { ...selection, subtitle: author && `by ${author}` }
+      const { category, status } = selection
+      return {
+        ...selection,
+        subtitle: `${category || 'No category'} • ${status}`,
+        media: selection.media
+      }
     },
-  },
+  }
 })
