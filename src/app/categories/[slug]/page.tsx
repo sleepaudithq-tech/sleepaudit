@@ -95,120 +95,112 @@ export default async function CategoryPage({ params }: { params: { slug: string 
     }
 
     return (
-        <div className="max-w-6xl mx-auto px-6 py-8">
-            {/* Breadcrumb Navigation */}
-            <nav className="mb-8">
-                <Link
-                    href="/blog"
-                    className="inline-flex items-center text-blue-600 hover:text-blue-700 transition-colors"
-                >
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Back to Blog
-                </Link>
-            </nav>
+        <div className="sleep-bg">
+            <div className="max-w-6xl mx-auto px-6 py-8">
+                {/* Breadcrumb Navigation */}
+                <nav className="mb-8">
+                    <Link href="/blog" className="btn-secondary">
+                        <ArrowLeft className="w-4 h-4 mr-2" />
+                        Back to Blog
+                    </Link>
+                </nav>
 
-            {/* Category Header */}
-            <header className={`bg-${category.color}-50 border border-${category.color}-200 rounded-lg p-8 mb-12 text-center`}>
-                <h1 className={`text-4xl md:text-5xl font-bold text-${category.color}-800 mb-4`}>
-                    {category.title}
-                </h1>
-                {category.description && (
-                    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                        {category.description}
-                    </p>
-                )}
-                <div className="mt-6">
-                    <span className={`bg-${category.color}-100 text-${category.color}-800 px-4 py-2 rounded-full text-sm font-medium`}>
-                        {posts.length} {posts.length === 1 ? 'post' : 'posts'}
-                    </span>
-                </div>
-            </header>
+                {/* Category Header */}
+                <header className={`card rounded-lg p-8 mb-12 text-center`}>
+                    <h1 className={`text-4xl md:text-5xl font-bold text-gray-900 mb-4`}>
+                        {category.title}
+                    </h1>
+                    {category.description && (
+                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                            {category.description}
+                        </p>
+                    )}
+                    <div className="mt-6">
+                        <span className={`badge`}>
+                            {posts.length} {posts.length === 1 ? 'post' : 'posts'}
+                        </span>
+                    </div>
+                </header>
 
-            {/* Posts Grid */}
-            <section>
-                <h2 className="text-2xl font-semibold text-gray-800 mb-6">Posts in {category.title}</h2>
+                {/* Posts Grid */}
+                <section>
+                    <h2 className="text-2xl font-semibold text-gray-900 mb-6">Posts in {category.title}</h2>
 
-                {posts.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {posts.map((post) => (
-                            <article key={post._id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                                {/* Featured Image */}
-                                {post.featuredImage?.asset?.url && (
-                                    <div className="aspect-video overflow-hidden">
-                                        <img
-                                            src={post.featuredImage.asset.url}
-                                            alt={post.featuredImage.alt || post.title}
-                                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                                        />
-                                    </div>
-                                )}
+                    {posts.length > 0 ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {posts.map((post) => (
+                                <article key={post._id} className="card rounded-lg overflow-hidden">
+                                    {/* Featured Image */}
+                                    {post.featuredImage?.asset?.url && (
+                                        <div className="aspect-video overflow-hidden">
+                                            <img
+                                                src={post.featuredImage.asset.url}
+                                                alt={post.featuredImage.alt || post.title}
+                                                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                                            />
+                                        </div>
+                                    )}
 
-                                {/* Content */}
-                                <div className="p-6">
-                                    {/* Category Badge */}
-                                    <span className={`inline-block bg-${category.color}-100 text-${category.color}-800 px-3 py-1 rounded-full text-xs font-medium mb-3`}>
-                                        {category.title}
-                                    </span>
+                                    {/* Content */}
+                                    <div className="p-6">
+                                        {/* Category Badge */}
+                                        <span className="badge mb-3">{category.title}</span>
 
-                                    {/* Title */}
-                                    <h3 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
-                                        <Link href={`/posts/${post.slug.current}`} className="hover:text-blue-600 transition-colors">
-                                            {post.title}
+                                        {/* Title */}
+                                        <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                                            <Link href={`/posts/${post.slug.current}`} className="hover:text-blue-600 transition-colors">
+                                                {post.title}
+                                            </Link>
+                                        </h3>
+
+                                        {/* Excerpt */}
+                                        {post.excerpt && (
+                                            <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                                                {post.excerpt}
+                                            </p>
+                                        )}
+
+                                        {/* Meta Info */}
+                                        <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                                            <div className="flex items-center">
+                                                <Calendar className="w-4 h-4 mr-1" />
+                                                {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                                                    month: 'short',
+                                                    day: 'numeric',
+                                                    year: 'numeric'
+                                                })}
+                                            </div>
+                                            <div className="flex items-center">
+                                                <Clock className="w-4 h-4 mr-1" />
+                                                {post.estimatedReadingTime} min read
+                                            </div>
+                                        </div>
+
+                                        {/* Tags */}
+                                        {post.tags && post.tags.length > 0 && (
+                                            <div className="flex flex-wrap gap-2 mb-4">
+                                                {post.tags.slice(0, 3).map((tag, index) => (
+                                                    <span key={index} className="badge">{tag}</span>
+                                                ))}
+                                            </div>
+                                        )}
+
+                                        {/* Read More */}
+                                        <Link href={`/posts/${post.slug.current}`} className="btn-secondary">
+                                            Read More <ArrowRight className="w-4 h-4 ml-1" />
                                         </Link>
-                                    </h3>
-
-                                    {/* Excerpt */}
-                                    {post.excerpt && (
-                                        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                                            {post.excerpt}
-                                        </p>
-                                    )}
-
-                                    {/* Meta Info */}
-                                    <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                                        <div className="flex items-center">
-                                            <Calendar className="w-4 h-4 mr-1" />
-                                            {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                                                month: 'short',
-                                                day: 'numeric',
-                                                year: 'numeric'
-                                            })}
-                                        </div>
-                                        <div className="flex items-center">
-                                            <Clock className="w-4 h-4 mr-1" />
-                                            {post.estimatedReadingTime} min read
-                                        </div>
                                     </div>
-
-                                    {/* Tags */}
-                                    {post.tags && post.tags.length > 0 && (
-                                        <div className="flex flex-wrap gap-2 mb-4">
-                                            {post.tags.slice(0, 3).map((tag, index) => (
-                                                <span key={index} className="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs">
-                                                    {tag}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    )}
-
-                                    {/* Read More */}
-                                    <Link
-                                        href={`/posts/${post.slug.current}`}
-                                        className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-sm"
-                                    >
-                                        Read More <ArrowRight className="w-4 h-4 ml-1" />
-                                    </Link>
-                                </div>
-                            </article>
-                        ))}
-                    </div>
-                ) : (
-                    <div className="text-center py-12">
-                        <p className="text-gray-500 text-lg">No posts published in this category yet.</p>
-                        <p className="text-gray-400 text-sm">Check back soon for new content!</p>
-                    </div>
-                )}
-            </section>
+                                </article>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="text-center py-12">
+                            <p className="text-gray-500 text-lg">No posts published in this category yet.</p>
+                            <p className="text-gray-400 text-sm">Check back soon for new content!</p>
+                        </div>
+                    )}
+                </section>
+            </div>
         </div>
     )
 }

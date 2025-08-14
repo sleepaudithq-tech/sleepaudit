@@ -49,7 +49,7 @@ export default async function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen sleep-bg">
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-6 py-20 text-center">
         <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6">
@@ -59,16 +59,10 @@ export default async function HomePage() {
           Evidence-based insights on sleep science, health optimization, and research-backed strategies for better rest.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            href="/blog"
-            className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors inline-flex items-center justify-center"
-          >
+          <Link href="/blog" className="btn-primary">
             Read Our Blog <ArrowRight className="w-5 h-5 ml-2" />
           </Link>
-          <Link
-            href="/about"
-            className="bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold border-2 border-blue-600 hover:bg-blue-50 transition-colors"
-          >
+          <Link href="/about" className="btn-secondary">
             Learn More
           </Link>
         </div>
@@ -87,7 +81,7 @@ export default async function HomePage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.map((post) => (
-            <article key={post._id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+            <article key={post._id} className="card rounded-lg overflow-hidden">
               {/* Featured Image */}
               {post.featuredImage?.asset?.url && (
                 <div className="aspect-video overflow-hidden">
@@ -103,10 +97,7 @@ export default async function HomePage() {
               <div className="p-6">
                 {/* Category Badge */}
                 {post.category && (
-                  <Link
-                    href={`/categories/${post.category.slug.current}`}
-                    className={`inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium mb-3 hover:bg-blue-200 transition-colors`}
-                  >
+                  <Link href={`/categories/${post.category.slug.current}`} className="badge mb-3">
                     {post.category.title}
                   </Link>
                 )}
@@ -158,10 +149,7 @@ export default async function HomePage() {
 
         {/* View All Posts Button */}
         <div className="text-center mt-12">
-          <Link
-            href="/blog"
-            className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-flex items-center"
-          >
+          <Link href="/blog" className="btn-primary">
             View All Posts <ArrowRight className="w-5 h-5 ml-2" />
           </Link>
         </div>

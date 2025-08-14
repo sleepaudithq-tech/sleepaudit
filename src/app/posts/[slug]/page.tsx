@@ -135,90 +135,81 @@ export default async function PostPage({ params }: { params: { slug: string } })
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-8">
-      {/* Breadcrumb Navigation */}
-      <nav className="mb-8">
-        <Link
-          href="/blog"
-          className="inline-flex items-center text-blue-600 hover:text-blue-700 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Blog
-        </Link>
-      </nav>
-
-      {/* Article Header */}
-      <header className="mb-12">
-        {post.category && (
-          <Link
-            href={`/categories/${post.category.slug.current}`}
-            className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium mb-4"
-          >
-            {post.category.title}
+    <div className="sleep-bg">
+      <div className="max-w-4xl mx-auto px-6 py-8">
+        {/* Breadcrumb Navigation */}
+        <nav className="mb-8">
+          <Link href="/blog" className="btn-secondary">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Blog
           </Link>
-        )}
+        </nav>
 
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-          {post.title}
-        </h1>
-
-        <div className="flex flex-wrap items-center gap-4 text-gray-600 text-sm mb-8">
-          {post.publishedAt && (
-            <div className="flex items-center">
-              <Calendar className="w-4 h-4 mr-2" />
-              {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
-            </div>
+        {/* Article Header */}
+        <header className="mb-12">
+          {post.category && (
+            <Link href={`/categories/${post.category.slug.current}`} className="badge mb-4">
+              {post.category.title}
+            </Link>
           )}
-          {post.estimatedReadingTime && (
-            <div className="flex items-center">
-              <Clock className="w-4 h-4 mr-2" />
-              {post.estimatedReadingTime} min read
-            </div>
-          )}
-        </div>
 
-        {post.featuredImage?.asset?.url && (
-          <div className="mb-8">
-            <img
-              src={post.featuredImage.asset.url}
-              alt={post.featuredImage.alt || post.title}
-              className="w-full h-auto rounded-lg shadow-lg"
-            />
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+            {post.title}
+          </h1>
+
+          <div className="flex flex-wrap items-center gap-4 text-gray-600 text-sm mb-8">
+            {post.publishedAt && (
+              <div className="flex items-center">
+                <Calendar className="w-4 h-4 mr-2" />
+                {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </div>
+            )}
+            {post.estimatedReadingTime && (
+              <div className="flex items-center">
+                <Clock className="w-4 h-4 mr-2" />
+                {post.estimatedReadingTime} min read
+              </div>
+            )}
           </div>
+
+          {post.featuredImage?.asset?.url && (
+            <div className="mb-8">
+              <img
+                src={post.featuredImage.asset.url}
+                alt={post.featuredImage.alt || post.title}
+                className="w-full h-auto rounded-lg shadow-xl"
+              />
+            </div>
+          )}
+        </header>
+
+        {/* Article Content */}
+        <article className="prose prose-lg max-w-none">
+          <PortableText value={post.body} components={portableTextComponents} />
+        </article>
+
+        {/* Sources Section */}
+        {post.sources && post.sources.length > 0 && (
+          <footer className="mt-16 pt-8 border-t border-blue-50">
+            <h3 className="text-2xl font-semibold text-gray-900 mb-6">Sources</h3>
+            <ol className="space-y-3">
+              {post.sources.map((source, index) => (
+                <li key={index} className="text-sm text-gray-600">
+                  <span className="font-medium">{index + 1}.</span>{' '}
+                  {source.authors && <span>{source.authors}. </span>}
+                  <a href={source.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">
+                    {source.title}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </footer>
         )}
-      </header>
-
-      {/* Article Content */}
-      <article className="prose prose-lg max-w-none">
-        <PortableText value={post.body} components={portableTextComponents} />
-      </article>
-
-      {/* Sources Section */}
-      {post.sources && post.sources.length > 0 && (
-        <footer className="mt-16 pt-8 border-t border-gray-200">
-          <h3 className="text-2xl font-semibold text-gray-800 mb-6">Sources</h3>
-          <ol className="space-y-3">
-            {post.sources.map((source, index) => (
-              <li key={index} className="text-sm text-gray-600">
-                <span className="font-medium">{index + 1}.</span>{' '}
-                {source.authors && <span>{source.authors}. </span>}
-                <a
-                  href={source.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:text-blue-700 underline"
-                >
-                  {source.title}
-                </a>
-              </li>
-            ))}
-          </ol>
-        </footer>
-      )}
+      </div>
     </div>
   )
 }
