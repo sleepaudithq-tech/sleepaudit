@@ -1,159 +1,103 @@
-import Link from 'next/link'
-import { ArrowRight, Calendar, Clock } from 'lucide-react'
-import { client, getPlaceholderData } from '@/lib/sanity'
+import Image from "next/image";
 
-interface Post {
-  _id: string
-  title: string
-  slug: { current: string }
-  excerpt: string
-  publishedAt: string
-  estimatedReadingTime: number
-  category?: {
-    title: string
-    slug: { current: string }
-    color: string
-  }
-  featuredImage?: {
-    asset: { url: string }
-    alt?: string
-  }
-}
-
-export default async function HomePage() {
-  let posts: Post[] = []
-
-  try {
-    // Try to fetch from Sanity (limit to 3 posts)
-    posts = await client.fetch<Post[]>(`
-      *[_type == "post" && status == "published"] | order(publishedAt desc) {
-        _id,
-        title,
-        slug,
-        excerpt,
-        publishedAt,
-        estimatedReadingTime,
-        category->{title, slug, color},
-        featuredImage{asset->{url}, alt}
-      }[0...3]
-    `)
-  } catch (error) {
-    // Fall back to placeholder data if Sanity isn't connected
-    console.log('Sanity fetch failed, using placeholder data')
-  }
-
-  // If no data from Sanity, use placeholder data
-  if (!posts || posts.length === 0) {
-    const { placeholderPosts } = getPlaceholderData()
-    posts = placeholderPosts.slice(0, 3)
-  }
-
+export default function Home() {
   return (
-    <div className="min-h-screen sleep-bg">
-      {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-6 py-20 text-center">
-        <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6">
-          SleepAudit.io
-        </h1>
-        <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto mb-8">
-          Evidence-based insights on sleep science, health optimization, and research-backed strategies for better rest.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/blog" className="btn-primary">
-            Read Our Blog <ArrowRight className="w-5 h-5 ml-2" />
-          </Link>
-          <Link href="/about" className="btn-secondary">
-            Learn More
-          </Link>
+    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
+      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+        <Image
+          className="dark:invert"
+          src="/next.svg"
+          alt="Next.js logo"
+          width={180}
+          height={38}
+          priority
+        />
+        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
+          <li className="mb-2 tracking-[-.01em]">
+            Get started by editing{" "}
+            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
+              src/app/page.tsx
+            </code>
+            .
+          </li>
+          <li className="tracking-[-.01em]">
+            Save and see your changes instantly.
+          </li>
+        </ol>
+
+        <div className="flex gap-4 items-center flex-col sm:flex-row">
+          <a
+            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
+            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              className="dark:invert"
+              src="/vercel.svg"
+              alt="Vercel logomark"
+              width={20}
+              height={20}
+            />
+            Deploy now
+          </a>
+          <a
+            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
+            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Read our docs
+          </a>
         </div>
-      </section>
-
-      {/* Featured Posts Section */}
-      <section className="max-w-7xl mx-auto px-6 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Latest Insights
-          </h2>
-          <p className="text-lg text-gray-600">
-            Discover the latest research and strategies for better sleep
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post) => (
-            <article key={post._id} className="card rounded-lg overflow-hidden">
-              {/* Featured Image */}
-              {post.featuredImage?.asset?.url && (
-                <div className="aspect-video overflow-hidden">
-                  <img
-                    src={post.featuredImage.asset.url}
-                    alt={post.featuredImage.alt || post.title}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-              )}
-
-              {/* Content */}
-              <div className="p-6">
-                {/* Category Badge */}
-                {post.category && (
-                  <Link href={`/categories/${post.category.slug.current}`} className="badge mb-3">
-                    {post.category.title}
-                  </Link>
-                )}
-
-                {/* Title */}
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                  <Link
-                    href={`/posts/${post.slug.current}`}
-                    className="hover:text-blue-600 transition-colors"
-                  >
-                    {post.title}
-                  </Link>
-                </h3>
-
-                {/* Excerpt */}
-                {post.excerpt && (
-                  <p className="text-gray-600 text-sm mb-4">
-                    {post.excerpt}
-                  </p>
-                )}
-
-                {/* Meta Info */}
-                <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                  <div className="flex items-center">
-                    <Calendar className="w-4 h-4 mr-1" />
-                    {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                      month: 'short',
-                      day: 'numeric',
-                      year: 'numeric'
-                    })}
-                  </div>
-                  <div className="flex items-center">
-                    <Clock className="w-4 h-4 mr-1" />
-                    {post.estimatedReadingTime} min read
-                  </div>
-                </div>
-
-                {/* Read More */}
-                <Link
-                  href={`/posts/${post.slug.current}`}
-                  className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-sm"
-                >
-                  Read More <ArrowRight className="w-4 h-4 ml-1" />
-                </Link>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        {/* View All Posts Button */}
-        <div className="text-center mt-12">
-          <Link href="/blog" className="btn-primary">
-            View All Posts <ArrowRight className="w-5 h-5 ml-2" />
-          </Link>
-        </div>
-      </section>
+      </main>
+      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+        <a
+          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Image
+            aria-hidden
+            src="/file.svg"
+            alt="File icon"
+            width={16}
+            height={16}
+          />
+          Learn
+        </a>
+        <a
+          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Image
+            aria-hidden
+            src="/window.svg"
+            alt="Window icon"
+            width={16}
+            height={16}
+          />
+          Examples
+        </a>
+        <a
+          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Image
+            aria-hidden
+            src="/globe.svg"
+            alt="Globe icon"
+            width={16}
+            height={16}
+          />
+          Go to nextjs.org →
+        </a>
+      </footer>
     </div>
-  )
+  );
 }
