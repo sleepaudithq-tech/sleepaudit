@@ -1,0 +1,84 @@
+export const metadata = {
+  title: "About SleepAudit",
+  description:
+    "Who we are, what we cover, and how we keep our sleep reviews independent at SleepAudit.",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    type: "profile",
+    title: "About SleepAudit",
+    description:
+      "Who we are, what we cover, and how we keep our sleep reviews independent at SleepAudit.",
+    images: [{ url: "/images/og-default.jpg", width: 1200, height: 630, alt: "SleepAudit" }],
+  },
+  twitter: { card: "summary_large_image" },
+}
+
+# About SleepAudit
+
+SleepAudit exists to make **better sleep simple**.  
+We publish **evidence-based guides** and **independent product reviews**—from mattresses and bedding to **supplements, routines, and sleep science**.  
+
+Our approach: **clear answers, grounded in research, written for real people.**
+
+---
+
+## Who We Are
+
+The **SleepAudit Team** — researchers, writers, and testers focused on separating hype from real, usable insights.  
+
+📧 Contact: [hello@sleepaudit.io](mailto:hello@sleepaudit.io)
+
+---
+
+## What We Cover
+
+- **Sleep environment:** mattresses, pillows, sheets, temperature regulation.  
+- **Supplements & science:** melatonin, magnesium, herbal blends, and emerging research—always covered with citations and disclaimers.  
+- **Lifestyle & routines:** circadian rhythms, blue-light exposure, diet, and daily habits that affect rest.  
+
+Our focus is **informational first**: education you can trust, before recommendations.
+
+---
+
+## How We Review
+
+- **Methods:** Products are tested against consistent checklists (comfort, durability, safety, and—when relevant—cooling, weave, GSM, fiber).  
+- **Evidence:** For supplements and health claims, we cite peer-reviewed studies and expert consensus.  
+- **Transparency:** We disclose affiliate relationships; links are marked `rel="sponsored"`.  
+- **Updates:** As products change or new research emerges, pages are revised and timestamped.  
+
+---
+
+## Editorial Standards
+
+- **Evidence comes first.** All claims must be verifiable with citations.  
+- **Education vs. recommendations.** Informational content is separate from product reviews.  
+- **No pay-to-play.** We never sell placement or guaranteed positive coverage.  
+
+---
+
+## Affiliates & Disclosures
+
+Some links are affiliate links (marked on-page). If you buy through one, we may earn a commission—at no extra cost to you.  
+
+Affiliate revenue **never changes** our criteria or rankings. Our commitment is to **trustworthy sleep information above all else**.
+
+---
+
+<script type="application/ld+json">
+{JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "SleepAudit",
+    "url": (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000") + "/about",
+    "logo": (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000") + "/images/og-default.jpg",
+    "sameAs": []
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "SleepAudit"
+  }
+})}
+</script>

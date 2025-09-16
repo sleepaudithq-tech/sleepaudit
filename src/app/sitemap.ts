@@ -17,6 +17,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       .readdirSync(blogDir, { withFileTypes: true })
       .filter((d) => d.isDirectory())
       .map((d) => d.name)
+      // ignore route groups and utility dirs
+      .filter((name) => !name.startsWith("(") && !name.startsWith("_"))
+      .filter((name) => !["rss.xml", "sitemap.xml", "api"].includes(name))
+      // only keep folders that actually have an MDX page
+      .filter((name) => fs.existsSync(path.join(blogDir, name, "page.mdx")))
 
     slugs.forEach((slug) =>
       urls.push({ url: `${SITE}/blog/${slug}`, lastModified: new Date() })
