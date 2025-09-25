@@ -1,5 +1,6 @@
 // src/app/guides/habits/page.tsx
 import type { Metadata } from "next";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "")) || "http://localhost:3000";
 const pageUrl = `${siteUrl}/learn/habits`;
@@ -52,18 +53,21 @@ export default function HabitsCategoryPage() {
             title: "What Is Sleep Hygiene (and Why It Matters)",
             summary:
                 "A simple framework for consistent, higher-quality sleep—light, timing, and environment.",
+            tag: "Foundations",
         },
         {
             href: "/blog/bedtime-routine",
             title: "Bedtime Routines for Better Sleep",
             summary:
                 "Wind-down sequences that actually stick: timing, light control, and mental off-ramps.",
+            tag: "Guidance",
         },
         {
             href: "/blog/are-naps-good-or-bad",
             title: "Are Naps Helpful or Harmful?",
             summary:
                 "When naps help performance—and when they disrupt night sleep. Ideal length and timing.",
+            tag: "Research",
         },
     ];
 
@@ -73,21 +77,21 @@ export default function HabitsCategoryPage() {
             title: "Caffeine vs Sleep: How Long Before Bed?",
             summary:
                 "Half-life, sensitivity, and practical cutoffs for coffee, tea, and energy drinks.",
-            tag: "Timing",
+            tag: "Research",
         },
         {
             href: "/blog/alcohol-and-sleep",
             title: "Alcohol and Sleep Quality",
             summary:
                 "Why alcohol fragments sleep and how to minimize impact on REM and recovery.",
-            tag: "Timing",
+            tag: "Research",
         },
         {
             href: "/blog/exercise-timing-sleep",
             title: "Can Exercise Timing Affect Sleep?",
             summary:
                 "Morning vs evening workouts and their effects on body temperature and sleep latency.",
-            tag: "Timing",
+            tag: "Research",
         },
     ];
 
@@ -97,39 +101,29 @@ export default function HabitsCategoryPage() {
             title: "Stress, Anxiety, and Sleep",
             summary:
                 "Practical decompression tactics: journaling, breathing, and cognitive wind-down tools.",
+            tag: "Guidance",
         },
         {
             href: "/blog/evening-light-and-screens",
             title: "Screens, Evening Light, and Sleep",
             summary:
                 "How to limit alerting light without going off-grid—filters, dimming, and timing.",
+            tag: "Guidance",
         },
         {
             href: "/blog/morning-light-and-consistency",
             title: "Morning Light and Consistent Wake Times",
             summary:
                 "The simplest circadian anchor: bright morning light and regular wake time.",
+            tag: "Guidance",
         },
     ];
 
     return (
         <>
-            {/* BreadcrumbList JSON-LD (SEO) */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "BreadcrumbList",
-                        itemListElement: [
-                            { "@type": "ListItem", position: 1, name: "Learn", item: `${siteUrl}/learn` },
-                            { "@type": "ListItem", position: 2, name: "Sleep Habits & Lifestyle", item: pageUrl },
-                        ],
-                    }),
-                }}
-            />
-
             <main className="mx-auto max-w-5xl px-4 py-12">
+                <Breadcrumbs items={[{ label: "Learn", href: "/learn" }, { label: "Sleep Habits & Lifestyle" }]} />
+
                 {/* Hero */}
                 <header className="mb-10">
                     <h1 className="text-4xl font-bold">Sleep Habits & Lifestyle</h1>

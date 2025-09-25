@@ -9,7 +9,7 @@ const links = [
     { href: "/blog", label: "Blog" },
     { href: "/learn", label: "Learn" },
     { href: "/about", label: "About" },
-]
+];
 
 export default function SiteHeader() {
     const pathname = usePathname()

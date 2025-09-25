@@ -1,5 +1,6 @@
 // src/app/guides/disorders/page.tsx
 import type { Metadata } from "next";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "")) || "http://localhost:3000";
 const pageUrl = `${siteUrl}/learn/disorders`;
@@ -52,30 +53,35 @@ export default function DisordersCategoryPage() {
             title: "Insomnia: Types, Causes, Treatments",
             summary:
                 "Onset vs maintenance insomnia, behavioral approaches (CBT-I), and when to seek medical care.",
+            tag: "Foundations",
         },
         {
             href: "/blog/sleep-apnea-basics",
             title: "Sleep Apnea: Symptoms, Causes, Solutions",
             summary:
                 "How to recognize apnea, why CPAP helps, and simple steps that support treatment.",
+            tag: "Foundations",
         },
         {
             href: "/blog/nightmares-vs-night-terrors",
             title: "Nightmares vs Night Terrors",
             summary:
                 "Key differences, triggers, and evidence-based management strategies for each.",
+            tag: "Foundations",
         },
         {
             href: "/blog/restless-legs-syndrome",
             title: "Restless Legs Syndrome Explained",
             summary:
                 "What RLS feels like, common drivers, and practical relief strategies to discuss with your clinician.",
+            tag: "Foundations",
         },
         {
             href: "/blog/jet-lag-recovery",
             title: "Travel & Jet Lag: Sleep Better Abroad",
             summary:
                 "Planning light, timing sleep, and caffeine use to shorten adjustment time across time zones.",
+            tag: "Guidance",
         },
     ];
 
@@ -85,42 +91,29 @@ export default function DisordersCategoryPage() {
             title: "CBT-I Basics",
             summary:
                 "Sleep restriction, stimulus control, and cognitive tools—the backbone of non-drug insomnia care.",
-            tag: "Action",
+            tag: "Guidance",
         },
         {
             href: "/blog/sleep-diaries-how-to",
             title: "How to Use a Sleep Diary",
             summary:
                 "Track the right signals: sleep latency, awakenings, efficiency—so you can see what's working.",
-            tag: "Action",
+            tag: "Guidance",
         },
         {
             href: "/blog/when-to-see-a-sleep-specialist",
             title: "When to See a Sleep Specialist",
             summary:
                 "Red flags, referral types, and what to expect from a sleep study or home test.",
-            tag: "Action",
+            tag: "Guidance",
         },
     ];
 
     return (
         <>
-            {/* BreadcrumbList JSON-LD (SEO) */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "BreadcrumbList",
-                        itemListElement: [
-                            { "@type": "ListItem", position: 1, name: "Learn", item: `${siteUrl}/learn` },
-                            { "@type": "ListItem", position: 2, name: "Sleep Disorders & Challenges", item: pageUrl },
-                        ],
-                    }),
-                }}
-            />
-
             <main className="mx-auto max-w-5xl px-4 py-12">
+                <Breadcrumbs items={[{ label: "Learn", href: "/learn" }, { label: "Sleep Disorders & Challenges" }]} />
+
                 {/* Hero */}
                 <header className="mb-10">
                     <h1 className="text-4xl font-bold">Sleep Disorders & Challenges</h1>

@@ -1,5 +1,6 @@
 // src/app/guides/environment/page.tsx
 import type { Metadata } from "next";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "")) || "http://localhost:3000";
 const pageUrl = `${siteUrl}/learn/environment`;
@@ -52,24 +53,28 @@ export default function EnvironmentCategoryPage() {
             title: "The Ideal Bedroom Temperature for Sleep",
             summary:
                 "Why cooler tends to be better, ideal ranges, and how to dial in your setup season by season.",
+            tag: "Research",
         },
         {
             href: "/blog/light-exposure-sleep",
             title: "Light Exposure: Blue Light vs Darkness",
             summary:
                 "How light timing shifts your circadian rhythm—and simple ways to control exposure.",
+            tag: "Research",
         },
         {
             href: "/blog/noise-and-sleep-quality",
             title: "How Noise Impacts Sleep Quality",
             summary:
                 "Soundscapes, white noise, and practical ways to mitigate disruptive environmental noise.",
+            tag: "Research",
         },
         {
             href: "/blog/bedding-materials-overview",
             title: "Bedding Materials: Breathability & Feel",
             summary:
                 "Cotton, linen, bamboo, and synthetics—what actually affects heat, moisture, and comfort.",
+            tag: "Research",
         },
     ];
 
@@ -79,42 +84,29 @@ export default function EnvironmentCategoryPage() {
             title: "Create a Cooling Bedroom Setup",
             summary:
                 "Layered approach: air movement, breathable bedding, and heat-dissipating surfaces.",
-            tag: "Action",
+            tag: "Guidance",
         },
         {
             href: "/blog/diy-sleep-cooling-without-ac",
             title: "DIY Sleep Hacks to Sleep Cooler Without A/C",
             summary:
                 "Low-cost tweaks: airflow, ice packs, hydration timing, and fabric choices.",
-            tag: "Action",
+            tag: "Guidance",
         },
         {
             href: "/blog/bedroom-light-blocking",
             title: "Block Light Effectively",
             summary:
                 "Blackout strategies, device dimming, and pre-bed light management that's easy to stick with.",
-            tag: "Action",
+            tag: "Guidance",
         },
     ];
 
     return (
         <>
-            {/* BreadcrumbList JSON-LD */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "BreadcrumbList",
-                        itemListElement: [
-                            { "@type": "ListItem", position: 1, name: "Learn", item: `${siteUrl}/learn` },
-                            { "@type": "ListItem", position: 2, name: "Sleep Environment & Optimization", item: pageUrl },
-                        ],
-                    }),
-                }}
-            />
-
             <main className="mx-auto max-w-5xl px-4 py-12">
+                <Breadcrumbs items={[{ label: "Learn", href: "/learn" }, { label: "Sleep Environment & Optimization" }]} />
+
                 <header className="mb-10">
                     <h1 className="text-4xl font-bold">Sleep Environment & Optimization</h1>
                     <p className="mt-3 max-w-3xl text-neutral-400">

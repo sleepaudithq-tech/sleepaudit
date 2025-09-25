@@ -8,18 +8,24 @@ export default function Home() {
         Evidence-based sleep guides and independent product reviews — built to help you sleep cooler, deeper, and better.
       </p>
 
-      <div className="flex justify-center gap-4">
+      <div className="flex justify-center gap-6">
         <Link
           href="/blog"
-          className="px-6 py-2 rounded-xl bg-neutral-800 hover:bg-neutral-700 transition"
+          className="group block rounded-2xl border border-neutral-800 bg-neutral-900/40 hover:bg-neutral-900 transition p-6 min-w-[200px]"
         >
-          Blog
+          <h2 className="text-xl font-semibold group-hover:underline">Blog</h2>
+          <p className="mt-2 text-neutral-400 text-sm">
+            Product reviews and sleep insights
+          </p>
         </Link>
         <Link
           href="/learn"
-          className="px-6 py-2 rounded-xl bg-neutral-800 hover:bg-neutral-700 transition"
+          className="group block rounded-2xl border border-neutral-800 bg-neutral-900/40 hover:bg-neutral-900 transition p-6 min-w-[200px]"
         >
-          Learn
+          <h2 className="text-xl font-semibold group-hover:underline">Learn</h2>
+          <p className="mt-2 text-neutral-400 text-sm">
+            Evidence-based sleep education
+          </p>
         </Link>
       </div>
     </main>

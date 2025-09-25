@@ -49,16 +49,18 @@ export default function BasicsCategoryPage() {
     // Forward-thinking: these can eventually be generated from MDX frontmatter.
     const featured = [
         {
-            href: "/blog/what-is-sleep",
+            href: "/learn/basics/what-is-sleep",
             title: "What Is Sleep?",
             summary:
                 "A clear, practical breakdown of what sleep is from a biological and behavioral perspective.",
+            tag: "Foundations",
         },
         {
             href: "/blog/why-we-sleep",
             title: "Why Do We Sleep?",
             summary:
                 "From memory consolidation to metabolic cleanup: the leading theories and what evidence says.",
+            tag: "Foundations",
         },
     ];
 
@@ -68,24 +70,28 @@ export default function BasicsCategoryPage() {
             title: "The Stages of Sleep Explained",
             summary:
                 "NREM stages 1–3 and REM: what happens in each stage, and why cycling matters.",
+            tag: "Foundations",
         },
         {
             href: "/blog/rem-vs-deep-sleep",
             title: "REM vs Deep Sleep: Why Both Matter",
             summary:
                 "Cognition vs restoration: how to think about balancing REM and slow-wave sleep.",
+            tag: "Foundations",
         },
         {
             href: "/blog/circadian-rhythm-basics",
             title: "Circadian Rhythm Basics",
             summary:
                 "Light, timing, and temperature: the core levers that set your body clock.",
+            tag: "Foundations",
         },
         {
             href: "/blog/sleep-and-brain-body",
             title: "How Sleep Affects the Brain and Body",
             summary:
                 "Neuroplasticity, hormones, immune function, and long-term health outcomes.",
+            tag: "Research",
         },
     ];
 
