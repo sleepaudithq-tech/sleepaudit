@@ -118,7 +118,11 @@ export default function BasicsCategoryPage() {
                     <h1 className="text-4xl font-bold">Sleep Basics & Science</h1>
                     <p className="mt-3 max-w-3xl text-neutral-400">
                         The foundations of great sleep, explained clearly. Start here to understand stages,
-                        circadian rhythm, and how sleep drives brain and body performance.
+                        circadian rhythm, and how sleep drives brain and body performance. Start with our{' '}
+                        <a href="/blog/circadian-rhythms" className="underline hover:text-neutral-200">
+                            Circadian Rhythms guide
+                        </a>{' '}
+                        to anchor your timing.
                     </p>
                 </header>
 

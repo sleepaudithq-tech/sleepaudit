@@ -1,8 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import Link from "next/link"
-import { CATEGORIES } from "@/config/categories"
+import NavMenu from "@/components/nav/MobileMenu"
 
 export default function MobileMenu() {
   const [open, setOpen] = useState(false)
@@ -79,48 +78,7 @@ export default function MobileMenu() {
             </div>
 
             <nav className="mt-4">
-              <div className="text-xs uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-                Primary
-              </div>
-              <div className="mt-2 grid">
-                <Link
-                  href="/blog"
-                  onClick={closeMenu}
-                  className="px-2 py-2 rounded-lg hover:bg-neutral-100 hover:dark:bg-neutral-900"
-                >
-                  Blog
-                </Link>
-                <Link
-                  href="/learn"
-                  onClick={closeMenu}
-                  className="px-2 py-2 rounded-lg hover:bg-neutral-100 hover:dark:bg-neutral-900"
-                >
-                  Learn
-                </Link>
-                <Link
-                  href="/about"
-                  onClick={closeMenu}
-                  className="px-2 py-2 rounded-lg hover:bg-neutral-100 hover:dark:bg-neutral-900"
-                >
-                  About
-                </Link>
-              </div>
-
-              <div className="mt-6 text-xs uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-                Categories
-              </div>
-              <div className="mt-2 grid">
-                {CATEGORIES.map((c) => (
-                  <Link
-                    key={c.slug}
-                    href={`/category/${c.slug}`}
-                    onClick={closeMenu}
-                    className="px-2 py-2 rounded-lg hover:bg-neutral-100 hover:dark:bg-neutral-900"
-                  >
-                    {c.title}
-                  </Link>
-                ))}
-              </div>
+              <NavMenu onNavigate={closeMenu} />
             </nav>
           </div>
         </div>
@@ -128,4 +86,3 @@ export default function MobileMenu() {
     </div>
   )
 }
-
