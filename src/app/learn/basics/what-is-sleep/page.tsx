@@ -23,11 +23,6 @@ export const metadata = {
   twitter: { card: "summary_large_image" },
 }
 
-export const categories = ["Sleep Science", "Basics"]
-export const author = "The SleepAudit Team"
-export const excerpt =
-  "Sleep is not idleness but one of biology's busiest shifts. This cornerstone explores what we once thought sleep was, what we know now, and why the modern world keeps tugging it off rhythm."
-
 export default function Page() {
   return (
     <main className="mx-auto max-w-4xl px-4 py-10">

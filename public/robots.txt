@@ -1,0 +1,14 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: *
+Disallow: /api/
+Disallow: /drafts/
+
+# Host
+Host: https://sleepaudit.io
+
+# Sitemaps
+Sitemap: https://sleepaudit.io/sitemap.xml

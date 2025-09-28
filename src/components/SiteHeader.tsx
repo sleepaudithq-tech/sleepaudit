@@ -2,75 +2,84 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useState } from "react"
+import { CATEGORIES } from "@/config/categories"
+import MobileMenu from "@/components/MobileMenu"
 
-const links = [
-    { href: "/", label: "Home" },
-    { href: "/blog", label: "Blog" },
-    { href: "/learn", label: "Learn" },
-    { href: "/about", label: "About" },
-];
+function NavLink({ href, label }: { href: string; label: string }) {
+  const pathname = usePathname()
+  const active = pathname?.startsWith(href)
+  return (
+    <Link
+      href={href}
+      className={[
+        "px-3 py-2 rounded-xl text-sm transition",
+        "hover:bg-neutral-100 hover:dark:bg-neutral-800",
+        active ? "font-medium bg-neutral-100 dark:bg-neutral-800" : "text-neutral-700 dark:text-neutral-200",
+      ].join(" ")}
+    >
+      {label}
+    </Link>
+  )
+}
 
 export default function SiteHeader() {
-    const pathname = usePathname()
-    const [open, setOpen] = useState(false)
+  return (
+    <header className="sticky top-0 z-40 border-b border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-950/80 backdrop-blur">
+      <div className="mx-auto max-w-6xl px-4">
+        <div className="h-14 flex items-center justify-between">
+          <Link href="/" className="font-semibold tracking-tight">
+            SleepAudit.io
+          </Link>
 
-    return (
-        <header className="sticky top-0 z-40 w-full border-b border-neutral-200/60 bg-white/70 backdrop-blur dark:border-neutral-800 dark:bg-neutral-950/70">
-            <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
-                <Link href="/" className="font-semibold tracking-tight">
-                    SleepAudit<span className="text-neutral-400">.io</span>
-                </Link>
+          {/* Desktop */}
+          <nav className="hidden md:flex items-center gap-1">
+            <NavLink href="/blog" label="Blog" />
 
-                {/* Desktop nav */}
-                <nav className="hidden gap-6 md:flex">
-                    {links.map(({ href, label }) => {
-                        const active = pathname === href || (href !== "/" && pathname.startsWith(href))
-                        return (
-                            <Link
-                                key={href}
-                                href={href}
-                                className={[
-                                    "text-sm transition-colors",
-                                    active
-                                        ? "text-black dark:text-white"
-                                        : "text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white",
-                                ].join(" ")}
-                            >
-                                {label}
-                            </Link>
-                        )
-                    })}
-                </nav>
+            {/* Learn dropdown (CSS-only, click + hover) */}
+            <div className="relative group pt-2">
+              {/* Make Learn itself clickable */}
+              <Link
+                href="/learn"
+                className="px-3 py-2 rounded-xl text-sm transition hover:bg-neutral-100 hover:dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200"
+                aria-haspopup="menu"
+                aria-expanded="false"
+              >
+                Learn
+              </Link>
 
-                {/* Mobile menu toggle */}
-                <button
-                    className="md:hidden rounded px-2 py-1 text-sm text-neutral-600 ring-1 ring-neutral-300 dark:text-neutral-300 dark:ring-neutral-700"
-                    onClick={() => setOpen(!open)}
-                    aria-expanded={open}
-                    aria-label="Toggle menu"
-                >
-                    Menu
-                </button>
+              {/* The dropdown */}
+              <div
+                className={[
+                  "absolute left-0 top-full w-[360px] z-50",
+                  "rounded-2xl border border-neutral-200 dark:border-neutral-800",
+                  "bg-white dark:bg-neutral-950 shadow-lg p-2",
+                  "opacity-0 invisible translate-y-1",
+                  "group-hover:opacity-100 group-hover:visible group-hover:translate-y-0",
+                  "group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0",
+                  "transition"
+                ].join(" ")}
+                role="menu"
+              >
+                {CATEGORIES.map(c => (
+                  <Link
+                    key={c.slug}
+                    href={`/category/${c.slug}`}
+                    role="menuitem"
+                    className="block px-3 py-2 rounded-xl hover:bg-neutral-100 hover:dark:bg-neutral-800 text-sm"
+                  >
+                    {c.title}
+                  </Link>
+                ))}
+              </div>
             </div>
 
-            {/* Mobile drawer */}
-            {open && (
-                <div className="border-t border-neutral-200/60 bg-white dark:border-neutral-800 dark:bg-neutral-950 md:hidden">
-                    <nav className="mx-auto grid max-w-5xl gap-2 px-4 py-3">
-                        {links.map(({ href, label }) => (
-                            <Link
-                                key={href}
-                                href={href}
-                                onClick={() => setOpen(false)}
-                                className="rounded px-2 py-1 text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-900"
-                            >
-                                {label}
-                            </Link>
-                        ))}
-                    </nav>
-                </div>
-            )}
-        </header>
-    )
+            <NavLink href="/about" label="About" />
+          </nav>
+
+          {/* Mobile drawer button */}
+          <MobileMenu />
+        </div>
+      </div>
+    </header>
+  )
 }

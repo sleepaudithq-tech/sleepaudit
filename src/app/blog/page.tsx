@@ -89,19 +89,20 @@ export default async function BlogIndex({
 
   const posts = await loadPosts()
 
-  // collect categories for the filter dropdown
-  const allCategories = Array.from(new Set(posts.flatMap((p) => p.categories))).sort((a, b) =>
-    a.localeCompare(b)
-  )
+  // collect categories for the filter dropdown — sanitize to string[]
+  const categoriesRaw = posts.flatMap((p) => p.categories ?? [])
+  const categories = categoriesRaw.filter((x): x is string => typeof x === "string")
+  const allCategories = Array.from(new Set(categories)).sort((a, b) => a.localeCompare(b))
 
   // filter by query + category
   const filtered = posts.filter((p) => {
+    const catList = p.categories ?? []
     const matchesQ =
       !q ||
       p.title.toLowerCase().includes(q) ||
       (p.excerpt?.toLowerCase().includes(q) ?? false) ||
-      p.categories.some((c) => c.toLowerCase().includes(q))
-    const matchesCat = !categoryFilter || p.categories.includes(categoryFilter)
+      catList.some((c) => c.toLowerCase().includes(q))
+    const matchesCat = !categoryFilter || catList.includes(categoryFilter)
     return matchesQ && matchesCat
   })
 
@@ -150,49 +151,52 @@ export default async function BlogIndex({
         <p className="text-neutral-600">No posts found. Try a different search or category.</p>
       ) : (
         <ul className="space-y-6">
-          {filtered.map((p) => (
-            <li key={p.slug} className="group rounded-lg border border-neutral-200 p-4 hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-900">
-              <article>
-                <header className="mb-2">
-                  <h2 className="text-xl font-semibold leading-snug">
-                    <Link
-                      href={`/blog/${p.slug}`}
-                      className="underline decoration-neutral-400 group-hover:decoration-neutral-700"
-                    >
-                      {p.title}
-                    </Link>
-                  </h2>
-                  {/* date / author / read time */}
-                  <div className="mt-1 text-xs text-neutral-500">
-                    {p.published ? (
-                      <time dateTime={new Date(p.published).toISOString()}>
-                        {fmtDate(p.published)}
-                      </time>
-                    ) : null}
-                    {p.author ? <> • {p.author}</> : null}
-                    {p.readingMinutes ? <> • {p.readingMinutes} min read</> : null}
-                  </div>
-                </header>
+          {filtered.map((p) => {
+            const catList = p.categories ?? []
+            return (
+              <li key={p.slug} className="group rounded-lg border border-neutral-200 p-4 hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-900">
+                <article>
+                  <header className="mb-2">
+                    <h2 className="text-xl font-semibold leading-snug">
+                      <Link
+                        href={`/blog/${p.slug}`}
+                        className="underline decoration-neutral-400 group-hover:decoration-neutral-700"
+                      >
+                        {p.title}
+                      </Link>
+                    </h2>
+                    {/* date / author / read time */}
+                    <div className="mt-1 text-xs text-neutral-500">
+                      {p.published ? (
+                        <time dateTime={new Date(p.published).toISOString()}>
+                          {fmtDate(p.published)}
+                        </time>
+                      ) : null}
+                      {p.author ? <> • {p.author}</> : null}
+                      {p.readingMinutes ? <> • {p.readingMinutes} min read</> : null}
+                    </div>
+                  </header>
 
-                {p.excerpt ? <p className="text-sm text-neutral-700 dark:text-neutral-300">{p.excerpt}</p> : null}
+                  {p.excerpt ? <p className="text-sm text-neutral-700 dark:text-neutral-300">{p.excerpt}</p> : null}
 
-                {p.categories.length > 0 ? (
-                  <ul className="mt-3 flex flex-wrap gap-2">
-                    {p.categories.map((c) => (
-                      <li key={c}>
-                        <Link
-                          href={`/blog?category=${encodeURIComponent(c)}`}
-                          className="rounded-full bg-neutral-100 px-2.5 py-1 text-xs text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800"
-                        >
-                          {c}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </article>
-            </li>
-          ))}
+                  {catList.length > 0 ? (
+                    <ul className="mt-3 flex flex-wrap gap-2">
+                      {catList.map((c) => (
+                        <li key={c}>
+                          <Link
+                            href={`/blog?category=${encodeURIComponent(c)}`}
+                            className="rounded-full bg-neutral-100 px-2.5 py-1 text-xs text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800"
+                          >
+                            {c}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </article>
+              </li>
+            )
+          })}
         </ul>
       )}
     </main>

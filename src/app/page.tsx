@@ -1,33 +1,58 @@
-import Link from "next/link";
+import { ARTICLES } from "@/content/posts"
+import { PostCard } from "@/components/PostCard"
+import { CATEGORIES } from "@/config/categories"
+import { CategoryTile } from "@/components/CategoryTile"
 
-export default function Home() {
+export const metadata = {
+  title: "SleepAudit.io -- Evidence-based sleep guides and reviews",
+  description:
+    "Clear, science-first sleep guidance and unbiased product reviews. Start with our latest research-backed articles or browse by category.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "SleepAudit.io",
+    description:
+      "Clear, science-first sleep guidance and unbiased product reviews.",
+    type: "website",
+    url: "/",
+  },
+  twitter: { card: "summary_large_image", title: "SleepAudit.io" },
+}
+
+export default function HomePage() {
+  const latest = [...ARTICLES]
+    .sort((a, b) => +new Date(b.date) - +new Date(a.date))
+    .slice(0, 6)
+
   return (
-    <main className="max-w-3xl mx-auto px-4 py-16 text-center">
-      <h1 className="text-4xl font-bold mb-4">SleepAudit.io</h1>
-      <p className="text-lg text-neutral-400 mb-8">
-        Evidence-based sleep guides and independent product reviews — built to help you sleep cooler, deeper, and better.
-      </p>
+    <main className="mx-auto max-w-6xl px-4 py-10">
+      {/* Hero */}
+      <section className="mb-10">
+        <h1 className="text-4xl font-semibold tracking-tight">SleepAudit.io</h1>
+        <p className="mt-3 text-neutral-600 dark:text-neutral-400 max-w-2xl">
+          Evidence-based sleep guides and independent product reviews. Practical,
+          readable, and built for results.
+        </p>
+      </section>
 
-      <div className="flex justify-center gap-6">
-        <Link
-          href="/blog"
-          className="group block rounded-2xl border border-neutral-800 bg-neutral-900/40 hover:bg-neutral-900 transition p-6 min-w-[200px]"
-        >
-          <h2 className="text-xl font-semibold group-hover:underline">Blog</h2>
-          <p className="mt-2 text-neutral-400 text-sm">
-            Product reviews and sleep insights
-          </p>
-        </Link>
-        <Link
-          href="/learn"
-          className="group block rounded-2xl border border-neutral-800 bg-neutral-900/40 hover:bg-neutral-900 transition p-6 min-w-[200px]"
-        >
-          <h2 className="text-xl font-semibold group-hover:underline">Learn</h2>
-          <p className="mt-2 text-neutral-400 text-sm">
-            Evidence-based sleep education
-          </p>
-        </Link>
-      </div>
+      {/* Latest posts */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold tracking-tight">Latest</h2>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {latest.map((p) => (
+            <PostCard key={p.slug} post={p} />
+          ))}
+        </div>
+      </section>
+
+      {/* Category tiles */}
+      <section className="mb-4">
+        <h2 className="text-2xl font-semibold tracking-tight">Explore Categories</h2>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {CATEGORIES.map((c) => (
+            <CategoryTile key={c.slug} category={c} />
+          ))}
+        </div>
+      </section>
     </main>
-  );
+  )
 }

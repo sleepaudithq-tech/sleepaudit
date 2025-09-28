@@ -8,7 +8,8 @@ type Props = {
     image?: string | { url: string; width?: number; height?: number; alt?: string };
     datePublished?: string | Date;
     dateModified?: string | Date;
-    authorName?: string;
+    authorName?: string;         // backwards compatibility
+    author?: string | string[];  // preferred field: string or array of author names
     breadcrumbs?: Crumb[];
 };
 
@@ -21,6 +22,18 @@ export default function SeoBlogJsonLd(props: Props) {
 
     const imageUrl = typeof props.image === "string" ? props.image : props.image?.url;
 
+    const authorField = (() => {
+        if (props.author !== undefined) {
+            return Array.isArray(props.author)
+                ? props.author.map((name) => ({ "@type": "Person", name }))
+                : { "@type": "Person", name: props.author };
+        }
+        if (props.authorName) {
+            return { "@type": "Person", name: props.authorName };
+        }
+        return undefined;
+    })();
+
     const article = {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
@@ -28,7 +41,7 @@ export default function SeoBlogJsonLd(props: Props) {
         headline: props.title,
         description: props.description,
         image: imageUrl ? [imageUrl] : undefined,
-        author: props.authorName ? { "@type": "Person", name: props.authorName } : undefined,
+        author: authorField,
         datePublished: toISO(props.datePublished),
         dateModified: toISO(props.dateModified ?? props.datePublished),
     };
