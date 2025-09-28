@@ -1,0 +1,72 @@
+export const metadata = {
+  title: "Learn",
+  description:
+    "Explore SleepAudit's library of evidence-based sleep education: basics, disorders, environment, lifestyle, supplements, and audience-specific guides.",
+  alternates: { canonical: "/learn" },
+  openGraph: {
+    type: "website",
+    title: "Learn • SleepAudit.io",
+    description:
+      "Explore SleepAudit's library of evidence-based sleep education: basics, disorders, environment, lifestyle, supplements, and audience-specific guides.",
+    images: [{ url: "/images/og-default.jpg", width: 1200, height: 630, alt: "SleepAudit" }],
+  },
+  twitter: { card: "summary_large_image" },
+}
+
+import Link from "next/link"
+import Breadcrumbs from "@/components/Breadcrumbs"
+
+# Learn
+
+Your library for **evidence-based sleep education**.  
+Start with the fundamentals, explore conditions, or dive into practical lifestyle and supplement guidance.
+
+<Breadcrumbs items={[{ label: "Learn" }]} />
+
+---
+
+<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-8">
+
+  <Link href="/learn/basics" className="group block rounded-2xl border border-neutral-800 bg-neutral-900/40 hover:bg-neutral-900 transition p-6">
+    <span className="block text-xl font-semibold group-hover:underline">Sleep Basics & Science</span>
+    <span className="mt-2 block text-neutral-400">
+      Foundations: what sleep is, why we need it, and how the brain and body benefit.
+    </span>
+  </Link>
+
+  <Link href="/learn/disorders" className="group block rounded-2xl border border-neutral-800 bg-neutral-900/40 hover:bg-neutral-900 transition p-6">
+    <span className="block text-xl font-semibold group-hover:underline">Sleep Disorders & Challenges</span>
+    <span className="mt-2 block text-neutral-400">
+      Insomnia, sleep apnea, restless legs, jet lag—clear explanations and next steps.
+    </span>
+  </Link>
+
+  <Link href="/learn/environment" className="group block rounded-2xl border border-neutral-800 bg-neutral-900/40 hover:bg-neutral-900 transition p-6">
+    <span className="block text-xl font-semibold group-hover:underline">Sleep Environment & Optimization</span>
+    <span className="mt-2 block text-neutral-400">
+      Temperature, noise, light, and bedding—optimize your setup for better rest.
+    </span>
+  </Link>
+
+  <Link href="/learn/habits" className="group block rounded-2xl border border-neutral-800 bg-neutral-900/40 hover:bg-neutral-900 transition p-6">
+    <span className="block text-xl font-semibold group-hover:underline">Sleep Habits & Lifestyle</span>
+    <span className="mt-2 block text-neutral-400">
+      Sleep hygiene, bedtime routines, caffeine timing, exercise, and stress management.
+    </span>
+  </Link>
+
+  <Link href="/learn/supplements" className="group block rounded-2xl border border-neutral-800 bg-neutral-900/40 hover:bg-neutral-900 transition p-6">
+    <span className="block text-xl font-semibold group-hover:underline">Supplements & Natural Remedies</span>
+    <span className="mt-2 block text-neutral-400">
+      Evidence-first look at magnesium, melatonin, L-theanine, valerian, and more.
+    </span>
+  </Link>
+
+  <Link href="/learn/audience" className="group block rounded-2xl border border-neutral-800 bg-neutral-900/40 hover:bg-neutral-900 transition p-6">
+    <span className="block text-xl font-semibold group-hover:underline">Audience-Specific Sleep Guides</span>
+    <span className="mt-2 block text-neutral-400">
+      Tailored strategies for hot sleepers, menopause, shift workers, students, and athletes.
+    </span>
+  </Link>
+
+</div>

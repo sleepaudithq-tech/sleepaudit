@@ -1,159 +1,58 @@
-import Link from 'next/link'
-import { ArrowRight, Calendar, Clock } from 'lucide-react'
-import { client, getPlaceholderData } from '@/lib/sanity'
+import { ARTICLES } from "@/content/posts"
+import { PostCard } from "@/components/PostCard"
+import { CATEGORIES } from "@/config/categories"
+import { CategoryTile } from "@/components/CategoryTile"
 
-interface Post {
-  _id: string
-  title: string
-  slug: { current: string }
-  excerpt: string
-  publishedAt: string
-  estimatedReadingTime: number
-  category?: {
-    title: string
-    slug: { current: string }
-    color: string
-  }
-  featuredImage?: {
-    asset: { url: string }
-    alt?: string
-  }
+export const metadata = {
+  title: "SleepAudit.io -- Evidence-based sleep guides and reviews",
+  description:
+    "Clear, science-first sleep guidance and unbiased product reviews. Start with our latest research-backed articles or browse by category.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "SleepAudit.io",
+    description:
+      "Clear, science-first sleep guidance and unbiased product reviews.",
+    type: "website",
+    url: "/",
+  },
+  twitter: { card: "summary_large_image", title: "SleepAudit.io" },
 }
 
-export default async function HomePage() {
-  let posts: Post[] = []
-
-  try {
-    // Try to fetch from Sanity (limit to 3 posts)
-    posts = await client.fetch<Post[]>(`
-      *[_type == "post" && status == "published"] | order(publishedAt desc) {
-        _id,
-        title,
-        slug,
-        excerpt,
-        publishedAt,
-        estimatedReadingTime,
-        category->{title, slug, color},
-        featuredImage{asset->{url}, alt}
-      }[0...3]
-    `)
-  } catch (error) {
-    // Fall back to placeholder data if Sanity isn't connected
-    console.log('Sanity fetch failed, using placeholder data')
-  }
-
-  // If no data from Sanity, use placeholder data
-  if (!posts || posts.length === 0) {
-    const { placeholderPosts } = getPlaceholderData()
-    posts = placeholderPosts.slice(0, 3)
-  }
+export default function HomePage() {
+  const latest = [...ARTICLES]
+    .sort((a, b) => +new Date(b.date) - +new Date(a.date))
+    .slice(0, 6)
 
   return (
-    <div className="min-h-screen sleep-bg">
-      {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-6 py-20 text-center">
-        <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6">
-          SleepAudit.io
-        </h1>
-        <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto mb-8">
-          Evidence-based insights on sleep science, health optimization, and research-backed strategies for better rest.
+    <main className="mx-auto max-w-6xl px-4 py-10">
+      {/* Hero */}
+      <section className="mb-10">
+        <h1 className="text-4xl font-semibold tracking-tight">SleepAudit.io</h1>
+        <p className="mt-3 text-neutral-600 dark:text-neutral-400 max-w-2xl">
+          Evidence-based sleep guides and independent product reviews. Practical,
+          readable, and built for results.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/blog" className="btn-primary">
-            Read Our Blog <ArrowRight className="w-5 h-5 ml-2" />
-          </Link>
-          <Link href="/about" className="btn-secondary">
-            Learn More
-          </Link>
-        </div>
       </section>
 
-      {/* Featured Posts Section */}
-      <section className="max-w-7xl mx-auto px-6 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Latest Insights
-          </h2>
-          <p className="text-lg text-gray-600">
-            Discover the latest research and strategies for better sleep
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post) => (
-            <article key={post._id} className="card rounded-lg overflow-hidden">
-              {/* Featured Image */}
-              {post.featuredImage?.asset?.url && (
-                <div className="aspect-video overflow-hidden">
-                  <img
-                    src={post.featuredImage.asset.url}
-                    alt={post.featuredImage.alt || post.title}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-              )}
-
-              {/* Content */}
-              <div className="p-6">
-                {/* Category Badge */}
-                {post.category && (
-                  <Link href={`/categories/${post.category.slug.current}`} className="badge mb-3">
-                    {post.category.title}
-                  </Link>
-                )}
-
-                {/* Title */}
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                  <Link
-                    href={`/posts/${post.slug.current}`}
-                    className="hover:text-blue-600 transition-colors"
-                  >
-                    {post.title}
-                  </Link>
-                </h3>
-
-                {/* Excerpt */}
-                {post.excerpt && (
-                  <p className="text-gray-600 text-sm mb-4">
-                    {post.excerpt}
-                  </p>
-                )}
-
-                {/* Meta Info */}
-                <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                  <div className="flex items-center">
-                    <Calendar className="w-4 h-4 mr-1" />
-                    {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                      month: 'short',
-                      day: 'numeric',
-                      year: 'numeric'
-                    })}
-                  </div>
-                  <div className="flex items-center">
-                    <Clock className="w-4 h-4 mr-1" />
-                    {post.estimatedReadingTime} min read
-                  </div>
-                </div>
-
-                {/* Read More */}
-                <Link
-                  href={`/posts/${post.slug.current}`}
-                  className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-sm"
-                >
-                  Read More <ArrowRight className="w-4 h-4 ml-1" />
-                </Link>
-              </div>
-            </article>
+      {/* Latest posts */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold tracking-tight">Latest</h2>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {latest.map((p) => (
+            <PostCard key={p.slug} post={p} />
           ))}
         </div>
+      </section>
 
-        {/* View All Posts Button */}
-        <div className="text-center mt-12">
-          <Link href="/blog" className="btn-primary">
-            View All Posts <ArrowRight className="w-5 h-5 ml-2" />
-          </Link>
+      {/* Category tiles */}
+      <section className="mb-4">
+        <h2 className="text-2xl font-semibold tracking-tight">Explore Categories</h2>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {CATEGORIES.map((c) => (
+            <CategoryTile key={c.slug} category={c} />
+          ))}
         </div>
       </section>
-    </div>
+    </main>
   )
 }
