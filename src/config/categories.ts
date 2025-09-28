@@ -46,3 +46,23 @@ export const CATEGORIES: Category[] = [
 ]
 
 export const CATEGORY_MAP = Object.fromEntries(CATEGORIES.map(c => [c.slug, c]))
+
+export type NavItem = {
+  label: string
+  href: string
+  matchPrefix?: string
+}
+
+export const NAV_ITEMS: NavItem[] = [
+  { label: "Sleep Guides", href: "/category/sleep-guides" },
+  { label: "Better Sleep Solutions", href: "/category/better-sleep-solutions" },
+  { label: "Science & Trends", href: "/category/science-trends" },
+  // TEMP: point Supplements to the current learn page until we ship /supplements in Step 2.
+  // After Step 2, change href to "/supplements".
+  { label: "Supplements", href: "/learn/supplements" },
+  { label: "Product Reviews", href: "/category/product-reviews" },
+  { label: "Comparisons", href: "/category/comparisons" },
+  { label: "Cooling Hub", href: "/cooling", matchPrefix: "/cooling" },
+]
+
+export const ABOUT_ITEM: NavItem = { label: "About", href: "/about" }

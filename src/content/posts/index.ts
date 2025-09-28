@@ -21,6 +21,15 @@ export const POSTS: PostMeta[] = [
   },
   {
     type: "article",
+    slug: "/blog/circadian-rhythms",
+    title: "Circadian Rhythms: Your Body's 24-Hour Clock",
+    date: "2025-09-28",
+    category: "science-trends",
+    excerpt:
+      "Your internal 24-hour clock governs sleep, hormones, metabolism, and mood -- here's how to align it in modern life.",
+  },
+  {
+    type: "article",
     slug: "/blog/why-you-get-hot-when-you-sleep",
     title: "Why You Get Hot When You Sleep (and What to Do About It)",
     date: "2025-08-24",
@@ -67,4 +76,3 @@ export const POSTS: PostMeta[] = [
 ]
 
 export const ARTICLES = POSTS.filter((p) => p.type === "article")
-
