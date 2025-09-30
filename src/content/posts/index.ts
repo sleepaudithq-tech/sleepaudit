@@ -30,6 +30,15 @@ export const POSTS: PostMeta[] = [
   },
   {
     type: "article",
+    slug: "/supplements/what-is-melatonin",
+    title: "What Is Melatonin? How It Works & When It Helps",
+    date: "2025-09-28",
+    category: "supplements",
+    excerpt:
+      "Melatonin is a body-clock signal—not a sedative. Learn what it is, what it does, safety basics, and when it's useful.",
+  },
+  {
+    type: "article",
     slug: "/blog/why-you-get-hot-when-you-sleep",
     title: "Why You Get Hot When You Sleep (and What to Do About It)",
     date: "2025-08-24",
