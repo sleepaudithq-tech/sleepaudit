@@ -15,13 +15,13 @@ export const metadata = {
     title: "Circadian Rhythms: Your Body's 24-Hour Clock",
     description:
       "A deep dive into the science of circadian rhythms: history, hormones, modern disruptions, and why alignment matters more than ever.",
-    url: "/blog/circadian-rhythms",
+    url: (process.env.NEXT_PUBLIC_SITE_URL || "https://sleepaudit.io") + "/blog/circadian-rhythms",
     images: [
       {
-        url: "/images/circadian_timeline_web3_v2.png",
+        url: (process.env.NEXT_PUBLIC_SITE_URL || "https://sleepaudit.io") + "/images/cool-bedroom.jpg",
         width: 1200,
         height: 630,
-        alt: "Circadian rhythm timeline with cortisol and melatonin curves",
+        alt: "Cool dark bedroom illustrates ideal sleep environment",
       },
     ],
   },
@@ -40,7 +40,7 @@ export default function Page() {
     "How your internal body clock shapes sleep, health, and modern life -- from melatonin and cortisol to blue light, jet lag, and social rhythms."
   const datePublished = "2025-09-28"
   const author = "The SleepAudit Team"
-  const image = "/images/circadian_timeline_web3_v2.png"
+  const image = "/images/cool-bedroom.jpg"
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-10">
