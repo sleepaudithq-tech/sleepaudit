@@ -45,8 +45,6 @@ export const CATEGORIES: Category[] = [
   },
 ]
 
-export const CATEGORY_MAP = Object.fromEntries(CATEGORIES.map(c => [c.slug, c]))
-
 export type NavItem = {
   label: string
   href: string
@@ -64,3 +62,21 @@ export const NAV_ITEMS: NavItem[] = [
 ]
 
 export const ABOUT_ITEM: NavItem = { label: "About", href: "/about" }
+
+// ---- Category map used by cards, breadcrumbs, related, etc.
+export type CategoryKey =
+  | "sleep-guides"
+  | "better-sleep-solutions"
+  | "science-trends"
+  | "supplements"
+  | "product-reviews"
+  | "comparisons"
+
+export const CATEGORY_MAP: Record<CategoryKey, { title: string; href: string }> = {
+  "sleep-guides": { title: "Sleep Guides", href: "/category/sleep-guides" },
+  "better-sleep-solutions": { title: "Better Sleep Solutions", href: "/category/better-sleep-solutions" },
+  "science-trends": { title: "Science & Trends", href: "/category/science-trends" },
+  supplements: { title: "Supplements", href: "/supplements" },
+  "product-reviews": { title: "Product Reviews", href: "/category/product-reviews" },
+  comparisons: { title: "Comparisons", href: "/category/comparisons" },
+}

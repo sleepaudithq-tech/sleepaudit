@@ -7,6 +7,7 @@ export type PostMeta = {
   date: string
   category: string
   excerpt?: string
+  draft?: boolean
 }
 
 export const POSTS: PostMeta[] = [
@@ -30,12 +31,58 @@ export const POSTS: PostMeta[] = [
   },
   {
     type: "article",
+    slug: "/blog/melatonin-and-sleep",
+    title: "Melatonin and Sleep: What Science Really Says (2025)",
+    date: "2025-09-30",
+    category: "supplements",
+    excerpt:
+      "Melatonin isn't a sedative—it’s a time signal. How it works, who it helps, and what the latest science says.",
+  },
+  {
+    type: "article",
+    slug: "/supplements/melatonin-timing-doses",
+    title: "Melatonin Timing & Doses: How to Use It Safely",
+    date: "2025-09-30",
+    category: "supplements",
+    excerpt:
+      "How to use melatonin—best timing windows, dose ranges, and jet-lag strategies.",
+  },
+  {
+    type: "article",
+    slug: "/supplements/glycine-for-sleep",
+    title: "Glycine for Sleep: A Practical Guide",
+    date: "2025-10-01",
+    category: "supplements",
+    excerpt:
+      "Does glycine help sleep? What it is, benefits, how to try 3 g before bed, stacks, and cautions.",
+  },
+  {
+    type: "article",
+    slug: "/blog/caffeine-sleep-how-late-is-too-late",
+    title: "Caffeine & Sleep: How Late Is Too Late? (2025 Guide)",
+    date: "2025-10-01",
+    category: "better-sleep-solutions",
+    excerpt:
+      "Caffeine’s half-life, timing rules of thumb, and how to set a personal cutoff so you sleep on time—without giving up coffee.",
+  },
+  {
+    type: "article",
     slug: "/supplements/what-is-melatonin",
     title: "What Is Melatonin? How It Works & When It Helps",
-    date: "2025-09-28",
+    date: "2025-09-27",
     category: "supplements",
     excerpt:
       "Melatonin is a body-clock signal—not a sedative. Learn what it is, what it does, safety basics, and when it's useful.",
+    draft: true,
+  },
+  {
+    type: "article",
+    slug: "/supplements/magnesium-for-sleep",
+    title: "Magnesium and Sleep: What Science Really Says (2025)",
+    date: "2025-09-28",
+    category: "supplements",
+    excerpt:
+      "Does magnesium help you sleep better? Forms, timing, dosing, safety, and what the evidence actually shows.",
   },
   {
     type: "article",

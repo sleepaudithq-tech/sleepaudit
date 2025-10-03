@@ -51,7 +51,7 @@ function Card({
 export default function SupplementsCategoryPage() {
     const foundations = [
         {
-            href: "/blog/magnesium-for-sleep",
+            href: "/supplements/magnesium-for-sleep",
             title: "Magnesium for Sleep: Does It Work?",
             summary:
                 "Glycinate vs citrate vs oxide, realistic dosing, timing, and the quality of evidence.",

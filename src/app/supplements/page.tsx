@@ -19,9 +19,10 @@ export const metadata = {
 
 export default function Page() {
   const items = POSTS
-    .filter((p) => p.category === "supplements")
+    .filter((p) => p.category === "supplements" && !p.draft)
     .sort((a, b) => (a.date < b.date ? 1 : -1))
 
+  // Featured = latest two by date
   const featured = items.slice(0, 2)
   const rest = items.slice(2)
 
@@ -30,10 +31,14 @@ export default function Page() {
       <h1 className="text-3xl font-semibold tracking-tight">Supplements for Sleep</h1>
       <p className="mt-2 text-neutral-400">
         Evidence-based primers on what works, what's safe, and how to time it. Start with
-        <Link href="/supplements/what-is-melatonin" className="underline underline-offset-2 hover:text-neutral-300">
-          {" "}What Is Melatonin?{" "}
+        <Link href="/blog/melatonin-and-sleep" className="underline underline-offset-2 hover:text-neutral-300">
+          {" "}the evidence review{" "}
         </Link>
-        and magnesium, then explore stacks and protocols.
+        , then read
+        <Link href="/supplements/melatonin-timing-doses" className="underline underline-offset-2 hover:text-neutral-300">
+          {" "}Timing & Doses{" "}
+        </Link>
+        .
       </p>
 
       <Disclaimer />

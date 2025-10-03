@@ -1,6 +1,9 @@
 import MDXContent from "@/components/MDXContent"
 import Article from "./content.mdx"
 import SeoBlogJsonLd from "@/components/SeoBlogJsonLd"
+import Breadcrumbs from "@/components/layout/Breadcrumbs"
+import RelatedPosts from "@/components/layout/RelatedPosts"
+import type { CategoryKey } from "@/config/categories"
 
 export const metadata = {
   title: "Circadian Rhythms: Your Body's 24-Hour Clock",
@@ -30,6 +33,8 @@ export default function Page() {
     (process.env.NEXT_PUBLIC_SITE_URL || "https://sleepaudit.io") +
     "/blog/circadian-rhythms"
 
+  const slug = "/blog/circadian-rhythms"
+  const category: CategoryKey = "science-trends"
   const title = "Circadian Rhythms: Your Body's 24-Hour Clock"
   const description =
     "How your internal body clock shapes sleep, health, and modern life -- from melatonin and cortisol to blue light, jet lag, and social rhythms."
@@ -39,6 +44,7 @@ export default function Page() {
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-10">
+      <Breadcrumbs category={category} title={title} slug={slug} />
       <SeoBlogJsonLd
         url={url}
         title={title}
@@ -50,6 +56,7 @@ export default function Page() {
       <MDXContent>
         <Article />
       </MDXContent>
+      <RelatedPosts category={category} currentSlug={slug} />
     </main>
   )
 }

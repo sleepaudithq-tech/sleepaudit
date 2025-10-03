@@ -6,16 +6,16 @@ import RelatedPosts from "@/components/layout/RelatedPosts"
 import type { CategoryKey } from "@/config/categories"
 
 export const metadata = {
-  title: "Magnesium for Sleep: Types, Timing, and Safety",
+  title: "What Is Melatonin? How It Works & When It Helps",
   description:
-    "Does magnesium help you sleep? Evidence review of glycinate, citrate, threonate; timing, dose ranges, side effects, and who should avoid it.",
-  alternates: { canonical: "/supplements/magnesium-for-sleep" },
+    "Melatonin is a body-clock signal—not a sedative. Learn what it is, what it does, safety basics, and when it's useful.",
+  alternates: { canonical: "/supplements/what-is-melatonin" },
   openGraph: {
     type: "article",
-    title: "Magnesium for Sleep: Types, Timing, and Safety",
+    title: "What Is Melatonin? How It Works & When It Helps",
     description:
-      "Evidence review of magnesium for sleep--best forms, timing, dosing, and safety.",
-    images: [{ url: "/images/og-default.jpg", width: 1200, height: 630, alt: "Magnesium supplement and bedtime" }],
+      "Melatonin is a body-clock signal—not a sedative. Learn what it is, what it does, safety basics, and when it's useful.",
+    images: [{ url: "/images/og-default.jpg", width: 1200, height: 630, alt: "Melatonin supplement" }],
   },
   twitter: { card: "summary_large_image" },
 }
@@ -23,11 +23,11 @@ export const metadata = {
 export default function Page() {
   const url =
     (process.env.NEXT_PUBLIC_SITE_URL || "https://sleepaudit.io") +
-    "/supplements/magnesium-for-sleep"
+    "/supplements/what-is-melatonin"
 
-  const slug = "/supplements/magnesium-for-sleep"
+  const slug = "/supplements/what-is-melatonin"
   const category: CategoryKey = "supplements"
-  const title = "Magnesium for Sleep: Types, Timing, and Safety"
+  const title = "What Is Melatonin? How It Works & When It Helps"
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-10">
@@ -35,7 +35,7 @@ export default function Page() {
       <SeoBlogJsonLd
         url={url}
         title={title}
-        description="Does magnesium help you sleep? Evidence review of glycinate, citrate, threonate; timing, dose ranges, side effects, and who should avoid it."
+        description="Melatonin is a body-clock signal—not a sedative. Learn what it is, what it does, safety basics, and when it's useful."
         datePublished="2025-09-28"
         author="The SleepAudit Team"
         image="/images/og-default.jpg"
