@@ -1,11 +1,13 @@
 export type PostType = "article" | "collection"
 
+import type { CategoryKey } from "@/config/categories"
+
 export type PostMeta = {
   type: PostType
   slug: string
   title: string
   date: string
-  category: string
+  category: CategoryKey
   excerpt?: string
   draft?: boolean
 }

@@ -3,7 +3,8 @@ import type { PostMeta } from "@/content/posts"
 import { CATEGORY_MAP } from "@/config/categories"
 
 export function PostCard({ post }: { post: PostMeta }) {
-  const catTitle = CATEGORY_MAP?.[post.category]?.title ?? post.category
+  const cat = CATEGORY_MAP[post.category]
+  const catTitle = cat?.title ?? post.category
   const date = new Date(post.date)
 
   return (
