@@ -9,10 +9,9 @@ function isCategoryKey(x: string): x is CategoryKey {
 export async function generateMetadata({
   params,
 }: {
-  params: any
+  params: Promise<{ slug: string }>
 }) {
-  const raw = typeof params?.then === "function" ? await params : params
-  const { slug } = raw as { slug: string }
+  const { slug } = await params
   if (!isCategoryKey(slug)) return {}
 
   const cat = CATEGORY_MAP[slug]
@@ -29,9 +28,8 @@ export async function generateMetadata({
   }
 }
 
-export default async function Page({ params }: { params: any }) {
-  const raw = typeof params?.then === "function" ? await params : params
-  const { slug } = raw as { slug: string }
+export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
   if (!isCategoryKey(slug)) notFound()
   const cat = CATEGORY_MAP[slug]
 
