@@ -19,7 +19,7 @@ import { metadata as caffeineMeta } from "@/app/blog/caffeine-sleep-how-late-is-
 import { metadata as melatoninMeta } from "@/app/blog/melatonin-and-sleep/page"
 import { metadata as magnesiumMeta } from "@/app/blog/magnesium-and-sleep/page"
 import { metadata as glycineMeta } from "@/app/blog/glycine-and-sleep/page"
-import { metadata as alcoholMeta } from "@/app/blog/alcohol-sleep-nightcaps/page.mdx"
+// Note: MDX named exports aren't typed for TS imports here; avoid importing from .mdx
 
 export type PostMeta = {
   type: PostType
@@ -51,7 +51,7 @@ export const POSTS: PostMeta[] = [
     category: "better-sleep-solutions",
     excerpt:
       "Alcohol can help you fall asleep faster—but it suppresses REM, fragments the night, and leaves you groggy. Practical cutoffs and standard drink math.",
-    image: og(alcoholMeta),
+    image: "/images/alcohol-sleep-hero-og.png",
     featured: true,
   },
   {
