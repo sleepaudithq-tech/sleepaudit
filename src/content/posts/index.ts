@@ -14,12 +14,7 @@ const og = (m: any): string | undefined => {
   return src
 }
 
-// Import the metadata exports from article pages to derive OG images
-import { metadata as caffeineMeta } from "@/app/blog/caffeine-sleep-how-late-is-too-late/page"
-import { metadata as melatoninMeta } from "@/app/blog/melatonin-and-sleep/page"
-import { metadata as magnesiumMeta } from "@/app/blog/magnesium-and-sleep/page"
-import { metadata as glycineMeta } from "@/app/blog/glycine-and-sleep/page"
-// Note: MDX named exports aren't typed for TS imports here; avoid importing from .mdx
+// Avoid importing page modules (or MDX) here to prevent circular deps during build
 
 export type PostMeta = {
   type: PostType
@@ -71,7 +66,7 @@ export const POSTS: PostMeta[] = [
     category: "supplements",
     excerpt:
       "Melatonin isn't a sedative—it’s a time signal. How it works, who it helps, and what the latest science says.",
-    image: og(melatoninMeta),
+    image: "/images/melatonin-bp5x2.png",
   },
   {
     type: "article",
@@ -81,7 +76,7 @@ export const POSTS: PostMeta[] = [
     category: "supplements",
     excerpt:
       "Glycine is a small amino acid with an outsized role in sleep physiology. At ~3 g before bed, it seems to improve subjective sleep and morning alertness—especially when paired with magnesium.",
-    image: og(glycineMeta),
+    image: "/images/glycine-hero.png",
   },
   {
     type: "article",
@@ -100,7 +95,7 @@ export const POSTS: PostMeta[] = [
     category: "supplements",
     excerpt:
       "Does glycine help sleep? What it is, benefits, how to try 3 g before bed, stacks, and cautions.",
-    image: og(glycineMeta),
+    image: "/images/glycine-hero.png",
   },
   {
     type: "article",
@@ -110,7 +105,7 @@ export const POSTS: PostMeta[] = [
     category: "better-sleep-solutions",
     excerpt:
       "Caffeine’s half-life, timing rules of thumb, and how to set a personal cutoff so you sleep on time—without giving up coffee.",
-    image: og(caffeineMeta),
+    image: "/images/caffeine-how-late-hero.png",
   },
   {
     type: "article",
@@ -130,7 +125,7 @@ export const POSTS: PostMeta[] = [
     category: "supplements",
     excerpt:
       "Does magnesium help you sleep better? Forms, timing, dosing, safety, and what the evidence actually shows.",
-    image: og(magnesiumMeta),
+    image: "/images/magnesium-sleep-hero.png",
   },
   {
     type: "article",
