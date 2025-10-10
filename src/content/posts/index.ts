@@ -2,6 +2,25 @@ export type PostType = "article" | "collection"
 
 import type { CategoryKey } from "@/config/categories"
 
+// Normalize an OG image URL to a relative path when possible
+const og = (m: any): string | undefined => {
+  const src = m?.openGraph?.images?.[0]?.url as string | undefined
+  if (!src) return undefined
+  try {
+    if (src.startsWith("http")) return new URL(src).pathname
+  } catch {
+    // ignore URL parse errors and fall through
+  }
+  return src
+}
+
+// Import the metadata exports from article pages to derive OG images
+import { metadata as caffeineMeta } from "@/app/blog/caffeine-sleep-how-late-is-too-late/page"
+import { metadata as melatoninMeta } from "@/app/blog/melatonin-and-sleep/page"
+import { metadata as magnesiumMeta } from "@/app/blog/magnesium-and-sleep/page"
+import { metadata as glycineMeta } from "@/app/blog/glycine-and-sleep/page"
+import { metadata as alcoholMeta } from "@/app/blog/alcohol-sleep-nightcaps/page.mdx"
+
 export type PostMeta = {
   type: PostType
   slug: string
@@ -9,6 +28,8 @@ export type PostMeta = {
   date: string
   category: CategoryKey
   excerpt?: string
+  image?: string
+  featured?: boolean
   draft?: boolean
 }
 
@@ -21,6 +42,17 @@ export const POSTS: PostMeta[] = [
     category: "product-reviews",
     excerpt:
       "The best breathable sheets that actually stay cool. Percale cotton, Tencel lyocell, linen, and bamboo viscose top the list for 2025.",
+  },
+  {
+    type: "article",
+    slug: "/blog/alcohol-sleep-nightcaps",
+    title: "Alcohol & Sleep: Why Nightcaps Backfire (2025 Guide)",
+    date: "2025-10-05",
+    category: "better-sleep-solutions",
+    excerpt:
+      "Alcohol can help you fall asleep faster—but it suppresses REM, fragments the night, and leaves you groggy. Practical cutoffs and standard drink math.",
+    image: og(alcoholMeta),
+    featured: true,
   },
   {
     type: "article",
@@ -39,6 +71,17 @@ export const POSTS: PostMeta[] = [
     category: "supplements",
     excerpt:
       "Melatonin isn't a sedative—it’s a time signal. How it works, who it helps, and what the latest science says.",
+    image: og(melatoninMeta),
+  },
+  {
+    type: "article",
+    slug: "/blog/glycine-and-sleep",
+    title: "Glycine and Sleep: What Science Really Says (2025)",
+    date: "2025-10-01",
+    category: "supplements",
+    excerpt:
+      "Glycine is a small amino acid with an outsized role in sleep physiology. At ~3 g before bed, it seems to improve subjective sleep and morning alertness—especially when paired with magnesium.",
+    image: og(glycineMeta),
   },
   {
     type: "article",
@@ -57,6 +100,7 @@ export const POSTS: PostMeta[] = [
     category: "supplements",
     excerpt:
       "Does glycine help sleep? What it is, benefits, how to try 3 g before bed, stacks, and cautions.",
+    image: og(glycineMeta),
   },
   {
     type: "article",
@@ -66,6 +110,7 @@ export const POSTS: PostMeta[] = [
     category: "better-sleep-solutions",
     excerpt:
       "Caffeine’s half-life, timing rules of thumb, and how to set a personal cutoff so you sleep on time—without giving up coffee.",
+    image: og(caffeineMeta),
   },
   {
     type: "article",
@@ -85,6 +130,7 @@ export const POSTS: PostMeta[] = [
     category: "supplements",
     excerpt:
       "Does magnesium help you sleep better? Forms, timing, dosing, safety, and what the evidence actually shows.",
+    image: og(magnesiumMeta),
   },
   {
     type: "article",
