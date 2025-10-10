@@ -28,6 +28,7 @@ export default function Page() {
   const slug = "/supplements/magnesium-for-sleep"
   const category: CategoryKey = "supplements"
   const title = "Magnesium for Sleep: Types, Timing, and Safety"
+  const hero = "/images/magnesium-sleep-hero.png"
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-10">
@@ -38,8 +39,16 @@ export default function Page() {
         description="Does magnesium help you sleep? Evidence review of glycinate, citrate, threonate; timing, dose ranges, side effects, and who should avoid it."
         datePublished="2025-09-28"
         author="The SleepAudit Team"
-        image="/images/og-default.jpg"
+        image={hero}
       />
+      <figure className="mb-8">
+        <img
+          src={hero}
+          alt="Magnesium supplement hero image"
+          className="w-full rounded-xl border border-neutral-800"
+          loading="lazy"
+        />
+      </figure>
       <MDXContent>
         <Article />
       </MDXContent>

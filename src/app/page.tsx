@@ -2,6 +2,7 @@ import { ARTICLES } from "@/content/posts"
 import { PostCard } from "@/components/PostCard"
 import { CATEGORIES } from "@/config/categories"
 import { CategoryTile } from "@/components/CategoryTile"
+import HomeFeaturedHero from "@/components/home/HomeFeaturedHero"
 
 export const metadata = {
   title: "SleepAudit.io -- Evidence-based sleep guides and reviews",
@@ -34,12 +35,21 @@ export default function HomePage() {
         </p>
       </section>
 
+      {/* Featured hero */}
+      <HomeFeaturedHero />
+
       {/* Latest posts */}
-      <section className="mb-12">
+      <section className="mb-12 [content-visibility:auto] [contain-intrinsic-size:1px_800px]">
         <h2 className="text-2xl font-semibold tracking-tight">Latest</h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {latest.map((p) => (
-            <PostCard key={p.slug} post={p} />
+          {latest.map((p, i) => (
+            <div
+              key={p.slug}
+              className="group rounded-2xl border border-neutral-800 bg-neutral-950/50 p-5 glow-hover fade-up"
+              style={{ animationDelay: `${i * 120}ms` }}
+            >
+              <PostCard post={p} />
+            </div>
           ))}
         </div>
       </section>

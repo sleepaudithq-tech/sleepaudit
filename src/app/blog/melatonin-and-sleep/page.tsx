@@ -60,6 +60,7 @@ export default function Page() {
           src={hero}
           alt="Melatonin supplement bottle and night sky imagery"
           className="w-full rounded-xl border border-neutral-800"
+          loading="lazy"
         />
       </figure>
       <MDXContent>
