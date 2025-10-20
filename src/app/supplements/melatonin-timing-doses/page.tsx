@@ -15,7 +15,7 @@ export const metadata = {
     title: "Melatonin Timing & Doses: How to Use It Safely",
     description:
       "Evidence-backed guidance on melatonin timing, dosing, and travel strategies.",
-    images: [{ url: "/images/og-default.jpg", width: 1200, height: 630, alt: "Melatonin timing and dosing guide" }],
+    images: [{ url: "/images/cool-bedroom.jpg", width: 1200, height: 630, alt: "Melatonin timing and dosing guide" }],
   },
   twitter: { card: "summary_large_image" },
 }
@@ -36,7 +36,7 @@ export default function Page() {
         description="How to use melatonin for sleep and circadian shifting: best timing windows, dose ranges, and jet-lag strategies."
         datePublished="2025-09-30"
         author="The SleepAudit Team"
-        image="/images/og-default.jpg"
+        image="/images/cool-bedroom.jpg"
       />
       <MDXContent>
         <Article />
@@ -45,4 +45,3 @@ export default function Page() {
     </main>
   )
 }
-

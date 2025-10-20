@@ -26,6 +26,10 @@ export type PostMeta = {
   image?: string
   featured?: boolean
   draft?: boolean
+  metadata?: {
+    tags?: string[]
+  }
+  affiliate?: boolean
 }
 
 export const POSTS: PostMeta[] = [
@@ -37,6 +41,8 @@ export const POSTS: PostMeta[] = [
     category: "product-reviews",
     excerpt:
       "The best breathable sheets that actually stay cool. Percale cotton, Tencel lyocell, linen, and bamboo viscose top the list for 2025.",
+    metadata: { tags: ["temperature"] },
+    affiliate: true,
   },
   {
     type: "article",
@@ -46,8 +52,9 @@ export const POSTS: PostMeta[] = [
     category: "better-sleep-solutions",
     excerpt:
       "Alcohol can help you fall asleep faster—but it suppresses REM, fragments the night, and leaves you groggy. Practical cutoffs and standard drink math.",
-    image: "/images/alcohol-sleep-hero-og.png",
+    image: "/images/alcohol-sleep-hero.png",
     featured: true,
+    metadata: { tags: ["alcohol", "sleep-hygiene"] },
   },
   {
     type: "article",
@@ -57,6 +64,7 @@ export const POSTS: PostMeta[] = [
     category: "science-trends",
     excerpt:
       "Your internal 24-hour clock governs sleep, hormones, metabolism, and mood -- here's how to align it in modern life.",
+    metadata: { tags: ["circadian-rhythm"] },
   },
   {
     type: "article",
@@ -67,6 +75,7 @@ export const POSTS: PostMeta[] = [
     excerpt:
       "Melatonin isn't a sedative—it’s a time signal. How it works, who it helps, and what the latest science says.",
     image: "/images/melatonin-bp5x2.png",
+    metadata: { tags: ["melatonin", "circadian-rhythm"] },
   },
   {
     type: "article",
@@ -77,6 +86,7 @@ export const POSTS: PostMeta[] = [
     excerpt:
       "Glycine is a small amino acid with an outsized role in sleep physiology. At ~3 g before bed, it seems to improve subjective sleep and morning alertness—especially when paired with magnesium.",
     image: "/images/glycine-hero.png",
+    metadata: { tags: ["sleep-hygiene"] },
   },
   {
     type: "article",
@@ -86,6 +96,8 @@ export const POSTS: PostMeta[] = [
     category: "supplements",
     excerpt:
       "How to use melatonin—best timing windows, dose ranges, and jet-lag strategies.",
+    metadata: { tags: ["melatonin", "circadian-rhythm"] },
+    affiliate: true,
   },
   {
     type: "article",
@@ -96,6 +108,8 @@ export const POSTS: PostMeta[] = [
     excerpt:
       "Does glycine help sleep? What it is, benefits, how to try 3 g before bed, stacks, and cautions.",
     image: "/images/glycine-hero.png",
+    metadata: { tags: ["sleep-hygiene"] },
+    affiliate: true,
   },
   {
     type: "article",
@@ -106,6 +120,7 @@ export const POSTS: PostMeta[] = [
     excerpt:
       "Caffeine’s half-life, timing rules of thumb, and how to set a personal cutoff so you sleep on time—without giving up coffee.",
     image: "/images/caffeine-how-late-hero.png",
+    metadata: { tags: ["caffeine", "sleep-hygiene", "circadian-rhythm"] },
   },
   {
     type: "article",
@@ -116,6 +131,7 @@ export const POSTS: PostMeta[] = [
     excerpt:
       "Melatonin is a body-clock signal—not a sedative. Learn what it is, what it does, safety basics, and when it's useful.",
     draft: true,
+    metadata: { tags: ["melatonin"] },
   },
   {
     type: "article",
@@ -126,6 +142,8 @@ export const POSTS: PostMeta[] = [
     excerpt:
       "Does magnesium help you sleep better? Forms, timing, dosing, safety, and what the evidence actually shows.",
     image: "/images/magnesium-sleep-hero.png",
+    metadata: { tags: ["magnesium"] },
+    affiliate: true,
   },
   {
     type: "article",
@@ -135,6 +153,7 @@ export const POSTS: PostMeta[] = [
     category: "better-sleep-solutions",
     excerpt:
       "Why nights feel hot: your circadian rhythm, REM sleep quirks, and the bed microclimate. Fixes for cooler, deeper sleep.",
+    metadata: { tags: ["temperature", "sleep-hygiene"] },
   },
   {
     type: "article",
@@ -144,6 +163,7 @@ export const POSTS: PostMeta[] = [
     category: "sleep-guides",
     excerpt:
       "Sleep isn't downtime--it's an active nightly reset. Here's what modern science actually says and how to use it.",
+    metadata: { tags: ["sleep-hygiene", "circadian-rhythm"] },
   },
   {
     type: "collection",
@@ -175,3 +195,32 @@ export const POSTS: PostMeta[] = [
 ]
 
 export const ARTICLES = POSTS.filter((p) => p.type === "article")
+
+// --- Helpers: category + latest ---
+export type PostLite = {
+  slug: string;
+  title: string;
+  excerpt?: string;
+  description?: string;
+  date?: string | Date;
+  hero?: { src: string; alt?: string };
+  image?: string;
+  coverImage?: string;
+  category?: string;
+  categoryKey?: string;
+  metadata?: { tags?: string[] };
+};
+
+function toDate(d?: string | Date) {
+  return d ? new Date(d) : new Date(0);
+}
+
+export function getPostsByCategory(categoryKey: string): PostLite[] {
+  return (POSTS as unknown as PostLite[])
+    .filter((p) => (p.categoryKey as string) === categoryKey || (p.category as string) === categoryKey)
+    .sort((a, b) => toDate(b.date).getTime() - toDate(a.date).getTime());
+}
+
+export function getLatestByCategory(categoryKey: string, limit = 3): PostLite[] {
+  return getPostsByCategory(categoryKey).slice(0, limit);
+}

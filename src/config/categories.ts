@@ -58,7 +58,6 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "Supplements", href: "/supplements", matchPrefix: "/supplements" },
   { label: "Product Reviews", href: "/category/product-reviews" },
   { label: "Comparisons", href: "/category/comparisons" },
-  { label: "Cooling Hub", href: "/cooling", matchPrefix: "/cooling" },
 ]
 
 export const ABOUT_ITEM: NavItem = { label: "About", href: "/about" }

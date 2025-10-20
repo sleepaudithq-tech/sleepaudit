@@ -4,14 +4,14 @@ export type CategorySlug =
   | "supplements"
   | "product-reviews"
   | "comparisons"
-  | "science-trends"
-  | "cooling-hub"; // "about" is a standalone page, not a listing
+  | "science-trends"; // "about" is a standalone page, not a listing
 
 export type CategoryDef = {
   slug: CategorySlug;
   title: string;
   description: string;
   // optional future: icon, image, hero, etc.
+  subcategories?: { slug: string; title: string; description: string }[];
 };
 
 export const CATEGORIES: Record<CategorySlug, CategoryDef> = {
@@ -26,6 +26,14 @@ export const CATEGORIES: Record<CategorySlug, CategoryDef> = {
     title: "Better Sleep Solutions",
     description:
       "Practical levers that move your sleep: caffeine timing, alcohol, light, temperature, stress, and routines.",
+    subcategories: [
+      {
+        slug: "cooling",
+        title: "Cooling Hub",
+        description:
+          "Your command center for sleeping cooler: tech, textiles, and temperature tactics—all in one place.",
+      },
+    ],
   },
   supplements: {
     slug: "supplements",
@@ -51,12 +59,6 @@ export const CATEGORIES: Record<CategorySlug, CategoryDef> = {
     description:
       "New studies translated into plain English, plus myth-busting and industry trends that matter.",
   },
-  "cooling-hub": {
-    slug: "cooling-hub",
-    title: "Cooling Hub",
-    description:
-      "Your command center for sleeping cooler: tech, textiles, and temperature tactics—all in one place.",
-  },
 };
 
 export function getAllCategorySlugs(): CategorySlug[] {
@@ -66,4 +68,3 @@ export function getAllCategorySlugs(): CategorySlug[] {
 export function getCategory(slug: string): CategoryDef | null {
   return (CATEGORIES as Record<string, CategoryDef>)[slug] ?? null;
 }
-

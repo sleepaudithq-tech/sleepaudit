@@ -3,6 +3,8 @@ import { PostCard } from "@/components/PostCard"
 import { CATEGORIES } from "@/config/categories"
 import { CategoryTile } from "@/components/CategoryTile"
 import HomeFeaturedHero from "@/components/home/HomeFeaturedHero"
+import ExploreTopics from "@/components/home/ExploreTopics"
+import CategoryLatestRail from "@/components/home/CategoryLatestRail"
 
 export const metadata = {
   title: "SleepAudit.io -- Evidence-based sleep guides and reviews",
@@ -25,9 +27,9 @@ export default function HomePage() {
     .slice(0, 6)
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-10">
+    <main className="pt-hero mx-auto max-w-6xl px-4">
       {/* Hero */}
-      <section className="mb-10">
+      <section className="pb-8">
         <h1 className="text-4xl font-semibold tracking-tight">SleepAudit.io</h1>
         <p className="mt-3 text-neutral-600 dark:text-neutral-400 max-w-2xl">
           Evidence-based sleep guides and independent product reviews. Practical,
@@ -35,11 +37,15 @@ export default function HomePage() {
         </p>
       </section>
 
-      {/* Featured hero */}
+      {/* Featured hero */
+      }
       <HomeFeaturedHero />
 
+      {/* Topics card */}
+      <ExploreTopics />
+
       {/* Latest posts */}
-      <section className="mb-12 [content-visibility:auto] [contain-intrinsic-size:1px_800px]">
+      <section className="pb-16 [content-visibility:auto] [contain-intrinsic-size:1px_800px]">
         <h2 className="text-2xl font-semibold tracking-tight">Latest</h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {latest.map((p, i) => (
@@ -53,6 +59,11 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      {/* Category rails */}
+      <CategoryLatestRail categoryKey="better-sleep-solutions" />
+      <CategoryLatestRail categoryKey="supplements" />
+      <CategoryLatestRail categoryKey="science-trends" />
 
       {/* Category tiles */}
       <section className="mb-4">

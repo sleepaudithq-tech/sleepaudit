@@ -37,7 +37,7 @@ export default function ArticleLayout({
 
     const siteUrl =
         (process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "")) || "http://localhost:3000";
-    const ogImage = `${siteUrl}/images/og-default.jpg`;
+    const ogImage = `${siteUrl}/images/cool-bedroom.jpg`;
 
     return (
         <article className="mx-auto max-w-3xl px-4 py-10">

@@ -4,9 +4,22 @@ export const metadata = {
   alternates: { canonical: "/cooling" },
 }
 
+import SeoCollectionJsonLd from "@/components/SeoCollectionJsonLd"
+
 # Cooling Sleep: Learn & Best Picks
 
 Get cool, deeper sleep—start with the explainer, then pick the right bedding.
+
+<SeoCollectionJsonLd
+  title="Cooling Hub"
+  description="Guides and product picks for sleeping cooler."
+  urlPath="/cooling"
+  items={[
+    { title: "Why You Get Hot When You Sleep", url: "/blog/why-you-get-hot-when-you-sleep" },
+    { title: "Glycine for Sleep: A Practical Guide", url: "/supplements/glycine-for-sleep" },
+    { title: "Best Cooling Sheets for Hot Sleepers (2025)", url: "/blog/best-cooling-sheets" },
+  ]}
+/>
 
 ## Learn
 - [Why You Get Hot When You Sleep](/blog/why-you-get-hot-when-you-sleep)
@@ -19,13 +32,4 @@ Get cool, deeper sleep—start with the explainer, then pick the right bedding.
 - Coming soon: Best Cooling Pillows
 - Coming soon: Best Cooling Mattress Toppers
 
-<script type="application/ld+json">
-{JSON.stringify({
-  "@context":"https://schema.org",
-  "@type":"ItemList",
-  "itemListElement":[
-    {"@type":"ListItem","position":1,"url":"/blog/why-you-get-hot-when-you-sleep"},
-    {"@type":"ListItem","position":2,"url":"/blog/best-cooling-sheets"}
-  ]
-})}
-</script>
+{/* Structured data handled via SeoCollectionJsonLd above */}

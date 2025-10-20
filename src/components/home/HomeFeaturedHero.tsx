@@ -30,7 +30,7 @@ export default function HomeFeaturedHero() {
 
   const side = all.filter((p) => p.slug !== feature.slug).slice(0, 4)
 
-  const cover = feature.image || "/images/og-default.jpg"
+  const cover = feature.image || "/images/cool-bedroom.jpg"
 
   return (
     <section className="mb-10 grid grid-cols-1 gap-6 md:grid-cols-12">
