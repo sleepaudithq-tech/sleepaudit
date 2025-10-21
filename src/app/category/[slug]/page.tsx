@@ -31,10 +31,11 @@ export async function generateStaticParams() {
 
 export const dynamicParams = false;
 
-type PageProps = { params: { slug: string } };
+type PageParamsPromise = { params: Promise<{ slug: string }> };
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const category = getCategory(params.slug);
+export async function generateMetadata({ params }: PageParamsPromise): Promise<Metadata> {
+  const { slug } = await params;
+  const category = getCategory(slug);
   if (!category) return {};
 
   const title = `${category.title} | SleepAudit.io`;
@@ -60,8 +61,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function CategoryPage({ params }: PageProps) {
-  const category = getCategory(params.slug);
+export default async function CategoryPage({ params }: PageParamsPromise) {
+  const { slug } = await params;
+  const category = getCategory(slug);
   if (!category) notFound();
 
   // Our POSTS use `category` (CategoryKey). Some code may use `categoryKey`.

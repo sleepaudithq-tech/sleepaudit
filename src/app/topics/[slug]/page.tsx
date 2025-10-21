@@ -33,10 +33,11 @@ export async function generateStaticParams() {
 
 export const dynamicParams = false;
 
-type PageProps = { params: { slug: string } };
+type PageParamsPromise = { params: Promise<{ slug: string }> };
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const topic = getTopic(params.slug);
+export async function generateMetadata({ params }: PageParamsPromise): Promise<Metadata> {
+  const { slug } = await params;
+  const topic = getTopic(slug);
   if (!topic) return {};
 
   const title = `${topic.title} | Topics | SleepAudit.io`;
@@ -62,8 +63,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function TopicPage({ params }: PageProps) {
-  const topic = getTopic(params.slug);
+export default async function TopicPage({ params }: PageParamsPromise) {
+  const { slug } = await params;
+  const topic = getTopic(slug);
   if (!topic) notFound();
 
   const tag = topic.slug; // must match posts' metadata.tags values

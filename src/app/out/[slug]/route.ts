@@ -8,18 +8,16 @@ const AFFILIATE_LINKS: Record<string, string> = {
   // Add more as you monetize posts
 };
 
-export async function GET(
-  _req: Request,
-  { params }: { params: { slug: string } }
-) {
-  const url = AFFILIATE_LINKS[params.slug];
+export async function GET(req: Request) {
+  const { pathname } = new URL(req.url);
+  const slug = pathname.split("/").pop() || "";
+  const url = AFFILIATE_LINKS[slug];
   if (!url) {
     return NextResponse.redirect("/", { status: 302 });
   }
 
   // Track click if you later want analytics (optional)
-  // Example: await saveClick(params.slug);
+  // Example: await saveClick(slug);
 
   return NextResponse.redirect(url, { status: 302 });
 }
-
