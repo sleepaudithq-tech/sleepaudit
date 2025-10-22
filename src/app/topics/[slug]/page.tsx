@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
-import { CATEGORIES, getAllCategorySlugs, getCategory } from "@/content/categories";
+import { TOPICS, getAllTopicSlugs, getTopic } from "@/content/topics";
 import { POSTS } from "@/content/posts";
 import SeoCollectionJsonLd from "@/components/SeoCollectionJsonLd";
 
@@ -13,11 +13,13 @@ type PostRecord = {
   excerpt?: string;
   description?: string;
   date?: string | Date;
+  hero?: { src: string; alt?: string };
   image?: string;
   coverImage?: string;
-  hero?: { src: string; alt?: string };
-  category?: string; // matches our POSTS CategoryKey
-  categoryKey?: string; // optional alt field
+  metadata?: {
+    tags?: string[];
+  };
+  categoryKey?: string;
 };
 
 function getBaseUrl() {
@@ -26,7 +28,7 @@ function getBaseUrl() {
 }
 
 export async function generateStaticParams() {
-  return getAllCategorySlugs().map((slug) => ({ slug }));
+  return getAllTopicSlugs().map((slug) => ({ slug }));
 }
 
 export const dynamicParams = false;
@@ -35,13 +37,13 @@ type PageParamsPromise = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: PageParamsPromise): Promise<Metadata> {
   const { slug } = await params;
-  const category = getCategory(slug);
-  if (!category) return {};
+  const topic = getTopic(slug);
+  if (!topic) return {};
 
-  const title = `${category.title} | SleepAudit.io`;
-  const description = category.description;
+  const title = `${topic.title} | Topics | SleepAudit.io`;
+  const description = topic.description;
   const base = getBaseUrl();
-  const url = base ? `${base}/category/${category.slug}` : `/category/${category.slug}`;
+  const url = base ? `${base}/topics/${topic.slug}` : `/topics/${topic.slug}`;
 
   return {
     title,
@@ -61,30 +63,31 @@ export async function generateMetadata({ params }: PageParamsPromise): Promise<M
   };
 }
 
-export default async function CategoryPage({ params }: PageParamsPromise) {
+export default async function TopicPage({ params }: PageParamsPromise) {
   const { slug } = await params;
-  const category = getCategory(slug);
-  if (!category) notFound();
+  const topic = getTopic(slug);
+  if (!topic) notFound();
 
-  // Our POSTS use `category` (CategoryKey). Some code may use `categoryKey`.
-  const posts = (POSTS as PostRecord[]).filter(
-    (p) => (p.categoryKey as string) === category.slug || (p.category as string) === category.slug
+  const tag = topic.slug; // must match posts' metadata.tags values
+
+  const posts = (POSTS as PostRecord[]).filter((p) =>
+    (p.metadata?.tags ?? []).map((t) => t.toLowerCase()).includes(tag.toLowerCase())
   );
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-10">
       <SeoCollectionJsonLd
-        title={category.title}
-        description={category.description}
-        urlPath={`/category/${category.slug}`}
+        title={topic.title}
+        description={topic.description}
+        urlPath={`/topics/${topic.slug}`}
         items={posts.map((p) => ({
           title: p.title,
-          url: (p.slug.startsWith("/")) ? p.slug : `/blog/${p.slug}`,
+          url: p.slug.startsWith("/") ? p.slug : `/blog/${p.slug}`,
         }))}
       />
       <header className="mb-8">
-        <h1 className="text-3xl font-semibold tracking-tight">{category.title}</h1>
-        <p className="mt-2 text-neutral-600 dark:text-neutral-400">{category.description}</p>
+        <h1 className="text-3xl font-semibold tracking-tight">{topic.title}</h1>
+        <p className="mt-2 text-neutral-600 dark:text-neutral-400">{topic.description}</p>
         <p className="mt-1 text-sm text-neutral-500">
           {posts.length} {posts.length === 1 ? "article" : "articles"}
         </p>
@@ -92,11 +95,13 @@ export default async function CategoryPage({ params }: PageParamsPromise) {
 
       {posts.length === 0 ? (
         <div className="rounded-2xl border border-neutral-200 p-8 dark:border-neutral-800">
-          <p className="text-neutral-600 dark:text-neutral-400">Content coming soon.</p>
+          <p className="text-neutral-600 dark:text-neutral-400">
+            We’re writing up resources for this topic. Check back soon.
+          </p>
         </div>
       ) : (
         <section
-          aria-label={`Posts in ${category.title}`}
+          aria-label={`Posts tagged ${topic.title}`}
           className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {posts.map((post) => (
@@ -104,28 +109,11 @@ export default async function CategoryPage({ params }: PageParamsPromise) {
           ))}
         </section>
       )}
-
-      {/* Cooling Hub promo – now nested under Better Sleep Solutions */}
-      {category.slug === "better-sleep-solutions" ? (
-        <section id="cooling" className="mt-10 rounded-2xl border border-neutral-800 p-6">
-          <h2 className="text-lg font-semibold">Explore Cooling Hub</h2>
-          <p className="mt-1 text-sm text-neutral-400">
-            Learn how temperature affects sleep and find our best cooling product picks.
-          </p>
-          <Link
-            href="/cooling"
-            className="mt-3 inline-block rounded-xl border border-neutral-700 px-4 py-2 text-sm hover:bg-neutral-800"
-          >
-            Go to Cooling Hub →
-          </Link>
-        </section>
-      ) : null}
     </main>
   );
 }
 
 function PostCard({ post }: { post: PostRecord }) {
-  // Our POSTS already have absolute slugs like "/blog/xyz"
   const href = post.slug.startsWith("/") ? post.slug : `/blog/${post.slug}`;
   const img = post?.hero?.src || post?.image || post?.coverImage || "/images/cool-bedroom.jpg";
   const alt = post?.hero?.alt || post?.title || "Post cover";

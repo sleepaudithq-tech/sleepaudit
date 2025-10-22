@@ -55,3 +55,19 @@
 .fade-up {
   animation: fadeUp 0.6s ease both;
 }
+
+/* ---- SleepAudit spacing tokens (header + hero) ---- */
+:root {
+  --sa-header-h: 64px;   /* mobile header height */
+  --sa-hero-gap: 12px;   /* extra breathing room below header */
+}
+@media (min-width: 1024px) {
+  :root {
+    --sa-header-h: 72px; /* desktop header height */
+    --sa-hero-gap: 16px;
+  }
+}
+
+/* Utility helpers */
+.pt-header { padding-top: var(--sa-header-h); }
+.pt-hero   { padding-top: calc(var(--sa-header-h) + var(--sa-hero-gap)); }

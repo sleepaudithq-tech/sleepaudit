@@ -15,7 +15,7 @@ export const metadata = {
     title: "What Is Melatonin? How It Works & When It Helps",
     description:
       "Melatonin is a body-clock signal—not a sedative. Learn what it is, what it does, safety basics, and when it's useful.",
-    images: [{ url: "/images/og-default.jpg", width: 1200, height: 630, alt: "Melatonin supplement" }],
+    images: [{ url: "/images/cool-bedroom.jpg", width: 1200, height: 630, alt: "Melatonin supplement" }],
   },
   twitter: { card: "summary_large_image" },
 }
@@ -38,7 +38,7 @@ export default function Page() {
         description="Melatonin is a body-clock signal—not a sedative. Learn what it is, what it does, safety basics, and when it's useful."
         datePublished="2025-09-28"
         author="The SleepAudit Team"
-        image="/images/og-default.jpg"
+        image="/images/cool-bedroom.jpg"
       />
       <MDXContent>
         <Article />

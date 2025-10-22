@@ -4,7 +4,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "")) || "http://localhost:3000";
 const pageUrl = `${siteUrl}/learn/environment`;
-const ogImage = `${siteUrl}/images/og-default.jpg`;
+const ogImage = `${siteUrl}/images/cool-bedroom.jpg`;
 
 export const metadata: Metadata = {
     title: "Sleep Environment & Optimization",

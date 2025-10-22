@@ -38,12 +38,23 @@ export const published = "2025-10-05"
 />
 
 import { Placeholder } from '@/components/Placeholder'
+import Image from 'next/image'
+
+<div className="mx-auto max-w-3xl px-4 py-10 lg:max-w-4xl">
 
 # Alcohol and Sleep: Why Nightcaps Backfire
 
-<figure>
-  <img src="/images/alcohol-sleep-hero.png" alt="Glass of wine and sleep cycle chart at night" />
-</figure>
+<div className="not-prose relative mb-8 aspect-[16/9] w-full overflow-hidden rounded-2xl">
+  <Image
+    src="/images/alcohol-sleep-hero.png"
+    alt="Glass of wine and sleep cycle chart at night"
+    fill
+    className="object-cover"
+    sizes="100vw"
+    priority
+  />
+  
+</div>
 
 It’s 11 p.m. and the day still hums in your head. You rinse a glass, pour something amber, and watch the surface settle as if calm could be decanted. Ten minutes later your eyelids feel heavy, and the edges of thought go soft. If sleep were a door, alcohol seems to find the handle and turn it.
 
@@ -192,3 +203,5 @@ Alcohol may quicken your slide into unconsciousness, but it doesn’t deliver th
 If you want the ending to land, **last call should be well before lights-out**. Keep the dose modest, finish early, and let the projector hum. The story will make sense in the morning.
 
 ---
+
+</div>

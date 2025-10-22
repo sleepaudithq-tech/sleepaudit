@@ -31,7 +31,7 @@ export default function HomeTopStories({ posts }: { posts: PostCard[] }) {
             {/* thumbnail */}
             <div className="relative h-12 w-16 overflow-hidden rounded-md border border-neutral-800 bg-neutral-900">
               <Image
-                src={p.image || "/images/og-default.jpg"}
+                src={p.image || "/images/cool-bedroom.jpg"}
                 alt={p.title}
                 fill
                 sizes="64px"

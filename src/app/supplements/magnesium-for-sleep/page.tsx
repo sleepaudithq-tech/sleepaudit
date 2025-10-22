@@ -15,7 +15,7 @@ export const metadata = {
     title: "Magnesium for Sleep: Types, Timing, and Safety",
     description:
       "Evidence review of magnesium for sleep--best forms, timing, dosing, and safety.",
-    images: [{ url: "/images/og-default.jpg", width: 1200, height: 630, alt: "Magnesium supplement and bedtime" }],
+    images: [{ url: "/images/cool-bedroom.jpg", width: 1200, height: 630, alt: "Magnesium supplement and bedtime" }],
   },
   twitter: { card: "summary_large_image" },
 }

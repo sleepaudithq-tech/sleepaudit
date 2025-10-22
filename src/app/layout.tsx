@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import SiteHeader from "@/components/SiteHeader"
 import SiteFooter from "@/components/SiteFooter"
+import ContentOffset from "@/components/layout/ContentOffset"
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] })
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] })
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     url: siteUrl,
     images: [
       {
-        url: "/images/og-default.jpg", // add later (1200x630)
+        url: "/images/cool-bedroom.jpg",
         width: 1200,
         height: 630,
         alt: "SleepAudit.io",
@@ -42,10 +43,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-neutral-950 text-neutral-100 min-h-screen`}
       >
         <SiteHeader />
-        {children}
+        <ContentOffset>{children}</ContentOffset>
         <SiteFooter />
       </body>
     </html>
   )
 }
-

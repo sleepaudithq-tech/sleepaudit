@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "")) || "http://localhost:3000";
 const pageUrl = `${siteUrl}/learn/basics`;
-const ogImage = `${siteUrl}/images/og-default.jpg`;
+const ogImage = `${siteUrl}/images/cool-bedroom.jpg`;
 
 export const metadata: Metadata = {
     title: "Sleep Basics & Science",

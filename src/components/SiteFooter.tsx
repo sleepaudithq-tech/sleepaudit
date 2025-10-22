@@ -10,19 +10,17 @@ export default function SiteFooter() {
                         </p>
                     </div>
 
-                    <nav className="grid gap-2">
+                    <nav className="grid gap-2 text-sm">
                         <a href="/blog" className="hover:underline">Blog</a>
                         <a href="/cooling" className="hover:underline">Cooling Hub</a>
                         <a href="/about" className="hover:underline">About</a>
                         <a href="mailto:hello@sleepaudit.io" className="hover:underline">Contact</a>
+                        <a href="/disclosure" className="hover:underline">Disclosure</a>
                     </nav>
 
                     <div className="text-xs">
-                        <div className="font-medium text-neutral-900 dark:text-neutral-100">Disclosure</div>
-                        <p className="mt-2">
-                            Some links may be affiliate links (marked on-page). We may earn a commission at no extra cost to you.
-                            Our picks are based on transparent criteria—learn more on our <a href="/about" className="underline">About</a> page.
-                        </p>
+                        <div className="font-medium text-neutral-900 dark:text-neutral-100">Stay Updated</div>
+                        <p className="mt-2">New guides weekly. Follow along as we test what actually helps sleep.</p>
                     </div>
                 </div>
 
